@@ -1,0 +1,5 @@
+{
+  "name": "MesSnippets",
+  "description": "Template complet Vite + React + TypeScript + Tailwind + Supabase avec Authentification, Database et Storage.",
+  "requestFramePermissions": []
+}

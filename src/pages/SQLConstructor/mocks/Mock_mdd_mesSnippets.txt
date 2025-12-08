@@ -1,0 +1,243 @@
+[
+  {
+    "schema": [
+      {
+        "columns": [
+          {
+            "default": "gen_random_uuid()",
+            "data_type": "uuid",
+            "column_name": "id",
+            "is_nullable": "NO"
+          },
+          {
+            "default": null,
+            "data_type": "uuid",
+            "column_name": "user_id",
+            "is_nullable": "NO"
+          },
+          {
+            "default": null,
+            "data_type": "uuid",
+            "column_name": "collection_id",
+            "is_nullable": "NO"
+          },
+          {
+            "default": null,
+            "data_type": "text",
+            "column_name": "name",
+            "is_nullable": "NO"
+          },
+          {
+            "default": null,
+            "data_type": "text",
+            "column_name": "description",
+            "is_nullable": "YES"
+          },
+          {
+            "default": "'Folder'::text",
+            "data_type": "text",
+            "column_name": "icon",
+            "is_nullable": "YES"
+          },
+          {
+            "default": "'blue'::text",
+            "data_type": "text",
+            "column_name": "color",
+            "is_nullable": "YES"
+          },
+          {
+            "default": "0",
+            "data_type": "integer",
+            "column_name": "order",
+            "is_nullable": "NO"
+          },
+          {
+            "default": "now()",
+            "data_type": "timestamp with time zone",
+            "column_name": "created_at",
+            "is_nullable": "NO"
+          },
+          {
+            "default": "now()",
+            "data_type": "timestamp with time zone",
+            "column_name": "updated_at",
+            "is_nullable": "NO"
+          }
+        ],
+        "table_name": "sni_categories",
+        "primary_key": [
+          "id"
+        ],
+        "foreign_keys": [
+          {
+            "column": "collection_id",
+            "ref_table": "sni_collections",
+            "ref_column": "id"
+          }
+        ]
+      },
+      {
+        "columns": [
+          {
+            "default": "gen_random_uuid()",
+            "data_type": "uuid",
+            "column_name": "id",
+            "is_nullable": "NO"
+          },
+          {
+            "default": null,
+            "data_type": "uuid",
+            "column_name": "user_id",
+            "is_nullable": "NO"
+          },
+          {
+            "default": null,
+            "data_type": "text",
+            "column_name": "name",
+            "is_nullable": "NO"
+          },
+          {
+            "default": null,
+            "data_type": "text",
+            "column_name": "description",
+            "is_nullable": "YES"
+          },
+          {
+            "default": "'javascript'::text",
+            "data_type": "text",
+            "column_name": "language",
+            "is_nullable": "NO"
+          },
+          {
+            "default": "'FileCode'::text",
+            "data_type": "text",
+            "column_name": "icon",
+            "is_nullable": "YES"
+          },
+          {
+            "default": "'blue'::text",
+            "data_type": "text",
+            "column_name": "color",
+            "is_nullable": "YES"
+          },
+          {
+            "default": "0",
+            "data_type": "integer",
+            "column_name": "order",
+            "is_nullable": "NO"
+          },
+          {
+            "default": "now()",
+            "data_type": "timestamp with time zone",
+            "column_name": "created_at",
+            "is_nullable": "NO"
+          },
+          {
+            "default": "now()",
+            "data_type": "timestamp with time zone",
+            "column_name": "updated_at",
+            "is_nullable": "NO"
+          }
+        ],
+        "table_name": "sni_collections",
+        "primary_key": [
+          "id"
+        ],
+        "foreign_keys": null
+      },
+      {
+        "columns": [
+          {
+            "default": "gen_random_uuid()",
+            "data_type": "uuid",
+            "column_name": "id",
+            "is_nullable": "NO"
+          },
+          {
+            "default": null,
+            "data_type": "uuid",
+            "column_name": "user_id",
+            "is_nullable": "NO"
+          },
+          {
+            "default": null,
+            "data_type": "uuid",
+            "column_name": "category_id",
+            "is_nullable": "NO"
+          },
+          {
+            "default": null,
+            "data_type": "text",
+            "column_name": "title",
+            "is_nullable": "NO"
+          },
+          {
+            "default": null,
+            "data_type": "text",
+            "column_name": "code",
+            "is_nullable": "NO"
+          },
+          {
+            "default": null,
+            "data_type": "text",
+            "column_name": "description",
+            "is_nullable": "YES"
+          },
+          {
+            "default": "'{}'::text[]",
+            "data_type": "ARRAY",
+            "column_name": "tags",
+            "is_nullable": "YES"
+          },
+          {
+            "default": "'{}'::text[]",
+            "data_type": "ARRAY",
+            "column_name": "dependencies",
+            "is_nullable": "YES"
+          },
+          {
+            "default": "now()",
+            "data_type": "timestamp with time zone",
+            "column_name": "created_at",
+            "is_nullable": "NO"
+          },
+          {
+            "default": "now()",
+            "data_type": "timestamp with time zone",
+            "column_name": "updated_at",
+            "is_nullable": "NO"
+          },
+          {
+            "default": "0",
+            "data_type": "integer",
+            "column_name": "order",
+            "is_nullable": "YES"
+          },
+          {
+            "default": "true",
+            "data_type": "boolean",
+            "column_name": "is_admin_compatible",
+            "is_nullable": "YES"
+          },
+          {
+            "default": "true",
+            "data_type": "boolean",
+            "column_name": "is_coloration_compatible",
+            "is_nullable": "YES"
+          }
+        ],
+        "table_name": "sni_snippets",
+        "primary_key": [
+          "id"
+        ],
+        "foreign_keys": [
+          {
+            "column": "category_id",
+            "ref_table": "sni_categories",
+            "ref_column": "id"
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,39 @@
+{
+  "name": "template-starter",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.86.0",
+    "@types/file-saver": "^2.0.7",
+    "dotenv": "^17.2.3",
+    "file-saver": "^2.0.5",
+    "js-tiktoken": "^1.0.21",
+    "jszip": "^3.10.1",
+    "lucide-react": "^0.554.0",
+    "react": "^18.3.1",
+    "react-confetti": "^6.4.0",
+    "react-dom": "^18.3.1",
+    "react-helmet-async": "^2.0.5",
+    "react-router-dom": "^7.9.6",
+    "react-syntax-highlighter": "^16.1.0",
+    "react-use": "^17.6.0",
+    "recharts": "^3.4.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.17",
+    "@types/node": "^22.14.0",
+    "@types/react-syntax-highlighter": "^15.5.13",
+    "@vitejs/plugin-react": "^5.0.0",
+    "autoprefixer": "^10.4.22",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.17",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  }
+}
