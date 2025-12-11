@@ -64,7 +64,7 @@ const SideBar: React.FC = () => {
                     </span>
                     <span className="font-medium">{item.label}</span>
                     {isActive && (
-                      <Icons.ChevronRight className="w-4 h-4 ml-auto text-[#958FFE]" />
+                      <Icons.ChevronRight className="w-4 h-4 ml-auto text-purple-700 dark:text-purple-400" />
                     )}
                   </Link>
                 </li>

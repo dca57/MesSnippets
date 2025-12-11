@@ -1,25 +1,32 @@
-import React, { useState } from 'react';
-import { Users, Shield, Activity, CreditCard, Settings, Sparkles } from 'lucide-react';
+import React, { useState } from "react";
+import {
+  Users,
+  Shield,
+  Activity,
+  CreditCard,
+  Settings,
+  Sparkles,
+} from "lucide-react";
 
 // Hooks
-import { useAdminSettings } from '../../features/admin/hooks/useAdminSettings';
-import { useAdminPlansFeatures } from '../../features/admin/hooks/useAdminPlansFeatures';
-import { getAllUserProfiles } from '../../features/admin/services/planService';
-import BackToMainButton from '../../components/admin/BackToMainButton';
+import { useAdminSettings } from "../../features/admin/hooks/useAdminSettings";
+import { useAdminPlansFeatures } from "../../features/admin/hooks/useAdminPlansFeatures";
+import { getAllUserProfiles } from "../../features/admin/services/planService";
+import BackToMainButton from "../../components/admin/BackToMainButton";
 
 // Admin Pages
-import Dashboard from './menu/Dashboard';
-import UsersManager from './menu/UsersManager';
-import Plan from './menu/Plan';
-import PlanQuotas from './menu/PlanQuotas';
-import Parameters from './menu/Parameters';
-import LLM from './menu/LLM';
+import Dashboard from "./menu/Dashboard";
+import UsersManager from "./menu/UsersManager";
+import Plan from "./menu/Plan";
+import PlanQuotas from "./menu/PlanQuotas";
+import Parameters from "./menu/Parameters";
+import LLM from "./menu/LLM";
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState<
-    'dashboard' | 'users' | 'plans' | 'features' | 'settings' | 'llm'
-  >('dashboard');
-  const [searchTerm, setSearchTerm] = useState('');
+    "dashboard" | "users" | "plans" | "features" | "settings" | "llm"
+  >("dashboard");
+  const [searchTerm, setSearchTerm] = useState("");
   const [userProfiles, setUserProfiles] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -34,7 +41,7 @@ const Admin = () => {
       const profiles = await getAllUserProfiles();
       setUserProfiles(profiles);
     } catch (error) {
-      console.error('Error fetching profiles:', error);
+      console.error("Error fetching profiles:", error);
     } finally {
       setLoading(false);
     }
@@ -45,12 +52,12 @@ const Admin = () => {
   }, []);
 
   const tabs = [
-    { id: 'dashboard', label: 'Dashboard', icon: Activity },
-    { id: 'users', label: 'Utilisateurs', icon: Users },
-    { id: 'plans', label: 'Limites Plans', icon: CreditCard },
-    { id: 'features', label: 'Features', icon: Settings },
-    { id: 'settings', label: 'Paramètres', icon: Shield },
-    { id: 'llm', label: 'Configuration LLM', icon: Sparkles },
+    { id: "dashboard", label: "Dashboard", icon: Activity },
+    { id: "users", label: "Utilisateurs", icon: Users },
+    { id: "plans", label: "Limites Plans", icon: CreditCard },
+    { id: "features", label: "Features", icon: Settings },
+    { id: "settings", label: "Paramètres", icon: Shield },
+    { id: "llm", label: "Configuration LLM", icon: Sparkles },
   ];
 
   return (
@@ -78,8 +85,8 @@ const Admin = () => {
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all ${
                   activeTab === tab.id
-                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md'
-                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700'
+                    ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md"
+                    : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700"
                 }`}
               >
                 <Icon size={20} />
@@ -90,7 +97,7 @@ const Admin = () => {
         </nav>
 
         {/* Footer Info */}
-        <div className="p-4 border-t border-sl ate-200 dark:border-slate-700 text-xs text-slate-400">
+        <div className="p-4 border-t border-slate-200 dark:border-slate-700 text-xs text-slate-400">
           <p>Version 1.0.0</p>
         </div>
       </div>
@@ -105,20 +112,18 @@ const Admin = () => {
             </div>
           ) : (
             <>
-              {activeTab === 'dashboard' && (
-                <Dashboard />
-              )}
+              {activeTab === "dashboard" && <Dashboard />}
 
-              {activeTab === 'users' && (
+              {activeTab === "users" && (
                 <UsersManager
-                  userStats={userProfiles.map(p => ({
+                  userStats={userProfiles.map((p) => ({
                     id: p.id,
-                    email: p.email || 'N/A',
+                    email: p.email || "N/A",
                     workspaces: 0,
                     categories: 0,
                     bookmarks: 0,
                     largestCategorySize: 0,
-                    plan: p.subscription_plan as 'free' | 'pro',
+                    plan: p.subscription_plan as "free" | "pro",
                     subscription_expires_at: p.subscription_expires_at,
                   }))}
                   searchTerm={searchTerm}
@@ -128,7 +133,7 @@ const Admin = () => {
                 />
               )}
 
-              {activeTab === 'plans' && (
+              {activeTab === "plans" && (
                 <PlanQuotas
                   limits={plansFeatures.limits}
                   onLimitChange={plansFeatures.handleLimitChange}
@@ -136,7 +141,7 @@ const Admin = () => {
                 />
               )}
 
-              {activeTab === 'features' && (
+              {activeTab === "features" && (
                 <Plan
                   features={plansFeatures.features}
                   onToggleFeature={plansFeatures.toggleFeature}
@@ -144,7 +149,7 @@ const Admin = () => {
                 />
               )}
 
-              {activeTab === 'settings' && (
+              {activeTab === "settings" && (
                 <Parameters
                   siteUrl={settings.siteUrl}
                   onSiteUrlChange={settings.setSiteUrl}
@@ -157,9 +162,7 @@ const Admin = () => {
                 />
               )}
 
-              {activeTab === 'llm' && (
-                <LLM />
-              )}
+              {activeTab === "llm" && <LLM />}
             </>
           )}
         </div>

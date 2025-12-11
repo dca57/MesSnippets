@@ -15,10 +15,13 @@ interface HeaderProps {
   onToggleTerminal: () => void;
   showLinkManager: boolean;
   onToggleLinkManager: () => void;
+  showLanding: boolean;
+  onToggleLanding: () => void;
 
   // Actions
   onVisualize: () => void;
   onImportSchema: () => void;
+  onExportTS: () => void;
   onEditSchema: () => void;
   onDeleteSchema: () => void;
 
@@ -42,8 +45,11 @@ export const Header: React.FC<HeaderProps> = ({
   onToggleTerminal,
   showLinkManager,
   onToggleLinkManager,
+  showLanding,
+  onToggleLanding,
   onVisualize,
   onImportSchema,
+  onExportTS,
   onEditSchema,
   onDeleteSchema,
   savedQueries,
@@ -61,14 +67,14 @@ export const Header: React.FC<HeaderProps> = ({
     relevantQueries.find((q) => q.id === loadedQueryId)?.name || "";
 
   return (
-    <header className="h-14 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 flex items-center shrink-0 z-10 px-4 gap-3">
+    <header className="h-12 bg-slate-100 dark:bg-slate-800 border-b border-slate-300 dark:border-slate-700 flex items-center shrink-0 z-10 px-4 gap-3">
       {/* Logo Area */}
       <div className="md:w-64 xl:w-80 flex items-center gap-3 shrink-0">
-        <div className="text-[#756FDE]">
+        <div className="text-red-700 dark:text-red-400">
           <Icons.Database className="w-6 h-6" />
         </div>
         <div>
-          <h1 className="text-sm font-bold text-[#756FDE]">SQL Constructor</h1>
+          <h1 className="text-sm font-bold text-red-700 dark:text-red-400">SQL Constructor</h1>
         </div>
       </div>
 
@@ -116,6 +122,17 @@ export const Header: React.FC<HeaderProps> = ({
         >
           <Icons.Network className="w-4 h-4" />
         </button>
+        <button
+          onClick={onToggleLanding}
+          className={`p-2 rounded ${
+            showLanding
+              ? "bg-indigo-500/10 text-indigo-400"
+              : "text-slate-500 hover:bg-slate-800"
+          }`}
+          title="About SQL Constructor"
+        >
+          <Icons.Info className="w-4 h-4" />
+        </button>
       </div>
 
       <div className="h-5 w-px bg-slate-700/50 mx-2" />
@@ -125,6 +142,7 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="w-48">
           <Select
             value={currentSchemaName}
+            className=""
             onChange={(e) => onSchemaChange(e.target.value)}
             options={schemas.map((s) => ({ value: s.name, label: s.name }))}
             placeholder={!schemas.length ? "No schemas" : undefined}
@@ -147,13 +165,23 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           </>
         )}
-        <button
-          onClick={onImportSchema}
-          className="ml-2 text-slate-400 hover:text-indigo-400 p-2 flex gap-1.5"
-        >
-          <Icons.Upload className="w-4 h-4" />
-          <span className="text-xs font-medium hidden lg:inline">Import</span>
-        </button>
+        <div className="flex items-center ml-2 gap-1">
+          <button
+            onClick={onImportSchema}
+            className="ml-2 text-slate-400 hover:text-indigo-400 p-2 flex gap-1.5"
+          >
+            <Icons.Upload className="w-4 h-4" />
+            <span className="text-xs font-medium hidden lg:inline">Import</span>
+          </button>
+          <button
+            onClick={onExportTS}
+            className="text-slate-400 hover:text-blue-400 p-2 flex gap-1.5 items-center rounded hover:bg-slate-800 transition-colors"
+            title="Export TypeScript Interfaces"
+          >
+            <Icons.FileCode className="w-4 h-4" />
+            <span className="text-xs font-medium hidden lg:inline">TS</span>
+          </button>
+        </div>
       </div>
 
       {/* Query Actions */}
@@ -193,7 +221,7 @@ export const Header: React.FC<HeaderProps> = ({
         <button
           onClick={onNewQuery}
           disabled={!schemas.length}
-          className="flex items-center gap-1.5 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-500 px-3 py-2 rounded"
+          className="flex items-center gap-1.5 px-3 text-xs font-bold text-white bg-blue-400 dark:bg-blue-500 hover:bg-blue-600 dark:hover:bg-blue-400 py-2 rounded"
         >
           <Icons.Refresh className="w-3.5 h-3.5" />
           <span className="hidden sm:inline">New</span>

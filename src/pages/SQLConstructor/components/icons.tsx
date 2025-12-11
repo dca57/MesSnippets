@@ -8,6 +8,8 @@ import {
   Copy,
   ChevronDown,
   Key,
+  Info,
+  FileCode,
   GripVertical,
   GripHorizontal, // Added for resize handle
   Filter,
@@ -15,6 +17,7 @@ import {
   Eye,
   Terminal,
   Link,
+  Rocket,
   ArrowLeftRight, // For Swap
   RefreshCw,
   Wrench,
@@ -38,6 +41,8 @@ export const Icons = {
   Copy,
   ChevronDown,
   Key,
+  Info,
+  FileCode,
   Drag: GripVertical, // Mapping Drag to GripVertical
   ResizeHandle: GripHorizontal, // Mapping GripHorizontal
   Filter,
@@ -45,6 +50,7 @@ export const Icons = {
   Eye,
   Terminal,
   Link,
+  Rocket,
   Swap: ArrowLeftRight,
   Refresh: RefreshCw,
   Wrench,

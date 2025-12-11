@@ -32,6 +32,7 @@ import ThankYou from "./pages/admin/landing/ThankYou";
 import Main from "./pages/Main";
 import MesSnippets from "./pages/MesSnippets";
 import SQLConstructor from "./pages/SQLConstructor";
+import MesTimeSheets from "./pages/MesTimeSheets";
 import Dashboard from "./pages/Dashboard";
 
 const App = () => {
@@ -93,6 +94,10 @@ const App = () => {
                         <Route
                           path="/SQLConstructor"
                           element={<SQLConstructor />}
+                        />
+                        <Route
+                          path="/MesTimeSheets"
+                          element={<MesTimeSheets />}
                         />
                       </Route>
                     </Route>

@@ -111,7 +111,7 @@ export const CategoryNode: React.FC<CategoryNodeProps> = ({
       >
         {hasSnippets && (
           <Icons.ChevronRight
-            className={`w-4 h-4 text-[#958FFE] transition-transform ${
+            className={`w-4 h-4 text-purple-700 dark:text-purple-400 transition-transform ${
               isExpanded ? "rotate-90" : ""
             }`}
           />
@@ -148,14 +148,14 @@ export const CategoryNode: React.FC<CategoryNodeProps> = ({
           className={`p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-600 ${categoryColors.text} dark:${categoryColors.textDark}`}
           title="Déplacer vers le haut"
         >
-          <Icons.ChevronRight className="w-4 h-4 text-[#958FFE] -rotate-90" />
+          <Icons.ChevronRight className="w-4 h-4 text-purple-700 dark:text-purple-400 -rotate-90" />
         </button>
         <button
           onClick={handleMoveDown}
           className={`p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-600 ${categoryColors.text} dark:${categoryColors.textDark}`}
           title="Déplacer vers le bas"
         >
-          <Icons.ChevronRight className="w-4 h-4 text-[#958FFE] rotate-90" />
+          <Icons.ChevronRight className="w-4 h-4 text-purple-700 dark:text-purple-400 rotate-90" />
         </button>
       </div>
 
@@ -225,7 +225,7 @@ export const CategoryNode: React.FC<CategoryNodeProps> = ({
                     className="p-0.5 hover:bg-slate-200 dark:hover:bg-slate-600 rounded"
                     title="Monter"
                   >
-                    <Icons.ChevronRight className="w-3 h-3 text-[#958FFE] -rotate-90" />
+                    <Icons.ChevronRight className="w-3 h-3 text-purple-700 dark:text-purple-400 -rotate-90" />
                   </button>
                   <button
                     onClick={(e) => {
@@ -235,7 +235,7 @@ export const CategoryNode: React.FC<CategoryNodeProps> = ({
                     className="p-0.5 hover:bg-slate-200 dark:hover:bg-slate-600 rounded"
                     title="Descendre"
                   >
-                    <Icons.ChevronRight className="w-3 h-3 text-[#958FFE] rotate-90" />
+                    <Icons.ChevronRight className="w-3 h-3 text-purple-700 dark:text-purple-400 rotate-90" />
                   </button>
                 </div>
 

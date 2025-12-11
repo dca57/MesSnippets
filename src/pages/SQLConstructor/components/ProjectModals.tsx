@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal } from "./ui/Modal";
 
 interface ImportModalProps {
@@ -114,6 +114,41 @@ export const UnsavedModal: React.FC<UnsavedModalProps> = ({
       }
     >
       <p>Save changes before continuing?</p>
+    </Modal>
+  );
+};
+
+interface ExportTSModalProps {
+  isOpen: boolean;
+  code: string;
+  onClose: () => void;
+}
+
+export const ExportTSModal: React.FC<ExportTSModalProps> = ({
+  isOpen,
+  code,
+  onClose,
+}) => {
+  const [copied, setCopied] = useState(false);
+
+  if (!isOpen) return null;
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <Modal
+      title="Export TypeScript Interfaces"
+      onClose={onClose}
+      saveLabel={copied ? "Copied!" : "Copy to Clipboard"}
+      onSave={handleCopy}
+    >
+      <pre className="w-full h-96 bg-slate-950 border border-slate-800 rounded px-4 py-3 text-xs font-mono text-blue-300 overflow-auto whitespace-pre-wrap select-all">
+        {code}
+      </pre>
     </Modal>
   );
 };

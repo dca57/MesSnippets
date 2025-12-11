@@ -263,7 +263,7 @@ const IAToolExamplePage: React.FC = () => {
                     </option>
                   ))}
                 </select>
-                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#958FFE] pointer-events-none" />
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-700 dark:text-purple-400 pointer-events-none" />
               </div>
             </div>
 
@@ -293,7 +293,7 @@ const IAToolExamplePage: React.FC = () => {
                     ))
                   )}
                 </select>
-                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#958FFE] pointer-events-none" />
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-700 dark:text-purple-400 pointer-events-none" />
               </div>
             </div>
 

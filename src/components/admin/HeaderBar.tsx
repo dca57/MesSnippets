@@ -60,21 +60,24 @@ const HeaderBar: React.FC = () => {
   };
 
   return (
-    <nav className="bg-slate-200 dark:bg-slate-700 border-slate-400 dark:border-slate-600 shadow-lg sticky top-0 z-50">
+    <nav className="bg-slate-200 dark:bg-slate-800 border-b-2   border-slate-400 dark:border-slate-600 sticky top-0 z-50">
       <div className="">
-        <div className="flex justify-between h-10 items-center">
+        <div className="flex justify-between h-12 items-center">
           <div className="flex items-center gap-1">
             <Link to="/" className="ml-3 flex text-xl font-bold text-[#756FDE]">
               <img src={Logo} alt="Logo" className="w-8 h-8" />
             </Link>
-            <Link to="/" className="flex text-xl font-bold text-[#756FDE]">
+            <Link
+              to="/"
+              className="flex text-xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400"
+            >
               Mes Snippets
             </Link>
 
             <button
               onClick={() => navigate("/")}
               title="Dashbord"
-              className="ml-36 p-2 bg-slate-600 hover:bg-blue-700 text-[#958FFE] font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
+              className="ml-36 p-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500 text-purple-700 dark:text-purple-400 font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
             >
               <Icons.LayoutGrid className="w-4 h-4" />
             </button>
@@ -82,7 +85,7 @@ const HeaderBar: React.FC = () => {
             <button
               onClick={() => navigate("/MesSnippets")}
               title="Mes Snippets"
-              className="ml-2 p-2 bg-slate-600 hover:bg-blue-700 text-[#958FFE] font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
+              className="ml-2 p-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500 text-purple-700 dark:text-purple-400 font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
             >
               <Icons.Code2 className="w-4 h-4" />
             </button>
@@ -90,9 +93,17 @@ const HeaderBar: React.FC = () => {
             <button
               onClick={() => navigate("/SQLConstructor")}
               title="SQL Constructor"
-              className="ml-2 p-2 bg-slate-600 hover:bg-blue-700 text-[#958FFE] font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
+              className="ml-2 p-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500 text-red-700 dark:text-red-400 font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
             >
               <Icons.Hammer className="w-4 h-4" />
+            </button>
+
+            <button
+              onClick={() => navigate("/MesTimeSheets")}
+              title="Mes TimeSheets"
+              className="ml-2 p-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500 text-green-700 dark:text-green-400 font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
+            >
+              <Icons.Clock className="w-4 h-4" />
             </button>
           </div>
 

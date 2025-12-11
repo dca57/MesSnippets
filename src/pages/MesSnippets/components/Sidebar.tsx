@@ -127,14 +127,14 @@ export const SideBar: React.FC<SideBarProps> = ({
               className="hover:text-blue-600 dark:hover:text-blue-400"
               title="Tout développer"
             >
-              <Icons.ChevronsDown className="w-4 h-4 text-[#958FFE]" />
+              <Icons.ChevronsDown className="w-4 h-4 text-purple-700 dark:text-purple-400" />
             </button>
             <button
               onClick={handleCollapseAll}
               className="hover:text-blue-600 dark:hover:text-blue-400"
               title="Tout replier"
             >
-              <Icons.ChevronsUp className="w-4 h-4 text-[#958FFE]" />
+              <Icons.ChevronsUp className="w-4 h-4 text-purple-700 dark:text-purple-400" />
             </button>
           </div>
 

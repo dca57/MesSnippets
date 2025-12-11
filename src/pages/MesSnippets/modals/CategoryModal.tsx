@@ -154,7 +154,7 @@ export const CategoryModal: React.FC<CategoryModalProps> = ({
                         {category.description || "Pas de description"}
                       </p>
                     </div>
-                    <Icons.ChevronRight className="w-5 h-5 text-[#958FFE] group-hover:text-green-600 dark:group-hover:text-green-400" />
+                    <Icons.ChevronRight className="w-5 h-5 text-purple-700 dark:text-purple-400 group-hover:text-green-600 dark:group-hover:text-green-400" />
                   </button>
                 );
               })}
@@ -184,7 +184,7 @@ export const CategoryModal: React.FC<CategoryModalProps> = ({
               onClick={handleBack}
               className="p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-700"
             >
-              <Icons.ChevronLeft className="w-5 h-5 text-[#958FFE]" />
+              <Icons.ChevronLeft className="w-5 h-5 text-purple-700 dark:text-purple-400" />
             </button>
             <h2 className="text-xl font-semibold text-slate-900 dark:text-white">
               {mode === "edit" ? "Modifier la catégorie" : "Nouvelle catégorie"}

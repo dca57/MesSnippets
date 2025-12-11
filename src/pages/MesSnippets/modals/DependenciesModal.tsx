@@ -215,9 +215,9 @@ export const DependenciesModal: React.FC<DependenciesModalProps> = ({
                         className="flex items-center gap-2 w-full text-left font-semibold text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 mb-2 group"
                       >
                         {expandedNodes.has(col.id) ? (
-                          <Icons.ChevronDown className="w-4 h-4 text-[#958FFE]" />
+                          <Icons.ChevronDown className="w-4 h-4 text-purple-700 dark:text-purple-400" />
                         ) : (
-                          <Icons.ChevronRight className="w-4 h-4 text-[#958FFE]" />
+                          <Icons.ChevronRight className="w-4 h-4 text-purple-700 dark:text-purple-400" />
                         )}
                         <span className="flex items-center gap-2 truncate">
                           {/* Use dynamic icon if we wanted, for now just name or generic */}

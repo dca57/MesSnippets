@@ -73,7 +73,7 @@ export const SchemaSidebar: React.FC<SchemaSidebarProps> = ({
   };
 
   return (
-    <aside className="w-64 xl:w-80 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 overflow-y-auto shrink-0 hidden md:block select-none flex-col">
+    <aside className="w-64 xl:w-80 bg-slate-100 dark:bg-slate-800 border-r border-slate-300 dark:border-slate-700 overflow-y-auto shrink-0 hidden md:block select-none flex-col">
       <div className="p-4 flex-1">
         <div className="flex justify-between items-start mb-4">
           <div className="overflow-hidden mr-2">
@@ -83,24 +83,24 @@ export const SchemaSidebar: React.FC<SchemaSidebarProps> = ({
             >
               {schemaName}
             </h2>
-            <span className="text-[10px] text-slate-600 whitespace-nowrap">
+            <span className="text-[10px] 	text-red-700 dark:text-red-400 whitespace-nowrap">
               {schema?.length || 0} Tables
             </span>
           </div>
           <div className="flex gap-1 shrink-0">
             <button
               onClick={expandAll}
-              className="p-1 text-slate-500 hover:text-indigo-400 hover:bg-slate-800 rounded"
+              className="px-1 text-slate-500 hover:text-indigo-400 hover:bg-slate-800 rounded"
               title="Expand All"
             >
-              <Icons.ExpandAll className="w-3.5 h-3.5" />
+              <Icons.ExpandAll className="w-4 h-4 text-red-700 dark:text-red-400" />
             </button>
             <button
               onClick={collapseAll}
-              className="p-1 text-slate-500 hover:text-indigo-400 hover:bg-slate-800 rounded"
+              className="px-1 text-slate-500 hover:text-indigo-400 hover:bg-slate-800 rounded"
               title="Collapse All"
             >
-              <Icons.CollapseAll className="w-3.5 h-3.5" />
+              <Icons.CollapseAll className="w-4 h-4 text-red-700 dark:text-red-400" />
             </button>
           </div>
         </div>
@@ -123,11 +123,11 @@ export const SchemaSidebar: React.FC<SchemaSidebarProps> = ({
                       isExpanded ? "rotate-0" : "-rotate-90"
                     }`}
                   >
-                    <Icons.ChevronDown className="w-3.5 h-3.5 text-[#958FFE]" />
+                    <Icons.ChevronDown className="w-3.5 h-3.5 text-red-700 dark:text-red-400" />
                   </span>
                   <div
                     className={`flex items-center gap-2 font-semibold text-sm truncate ${
-                      isActive ? "text-indigo-300" : "text-slate-400"
+                      isActive ? "text-red-700 dark:text-red-400" : "text-slate-400"
                     }`}
                   >
                     <Icons.Table className="w-3.5 h-3.5" />

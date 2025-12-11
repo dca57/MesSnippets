@@ -67,7 +67,7 @@ export const Select: React.FC<SelectProps> = ({
         ))}
     </select>
     <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500 scale-75">
-      <Icons.ChevronDown className="w-3.5 h-3.5 text-[#958FFE]" />
+      <Icons.ChevronDown className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
     </div>
   </div>
 );

@@ -19,7 +19,10 @@ import {
   ImportModal,
   SaveQueryModal,
   UnsavedModal,
+  ExportTSModal,
 } from "./SQLConstructor/components/ProjectModals";
+import { Landing } from "./SQLConstructor/components/Landing";
+import { generateTypeScriptInterfaces } from "./SQLConstructor/services/ts-generator";
 
 type PendingAction =
   | { type: "NEW_QUERY" }
@@ -92,6 +95,7 @@ const SQLConstructor: React.FC = () => {
   const [showTerminal, setShowTerminal] = useState(true);
   const [showLinkManager, setShowLinkManager] = useState(false);
   const [showSchemaModal, setShowSchemaModal] = useState(false);
+  const [showLanding, setShowLanding] = useState(false);
 
   // Modal States
   const [showImportModal, setShowImportModal] = useState(false);
@@ -102,6 +106,10 @@ const SQLConstructor: React.FC = () => {
   const [saveQueryName, setSaveQueryName] = useState("");
   const [showUnsavedModal, setShowUnsavedModal] = useState(false);
   const [pendingAction, setPendingAction] = useState<PendingAction>(null);
+
+  // Export TS
+  const [showExportTSModal, setShowExportTSModal] = useState(false);
+  const [tsCode, setTsCode] = useState("");
 
   // --- Terminal Resizing State ---
   const DEFAULT_TERMINAL_HEIGHT = 192; // h-48 equivalent
@@ -221,6 +229,12 @@ const SQLConstructor: React.FC = () => {
     }
   };
 
+  const handleExportTS = () => {
+    const code = generateTypeScriptInterfaces(activeSchema);
+    setTsCode(code);
+    setShowExportTSModal(true);
+  };
+
   const executeSave = (name: string) => {
     const newId = loadedQueryId || Math.random().toString(36).substr(2, 9);
     const newQuery: SavedQuery = {
@@ -262,7 +276,7 @@ const SQLConstructor: React.FC = () => {
   );
 
   return (
-    <div className="h-screen flex flex-col bg-slate-900 text-slate-300 font-sans overflow-hidden">
+    <div className="h-screen flex flex-col bg-slate-300 dark:bg-slate-600 text-slate-900 dark:text-slate-300 font-sans overflow-hidden">
       {/* Modals */}
       {showSchemaModal && (
         <SchemaDiagramModal
@@ -280,6 +294,12 @@ const SQLConstructor: React.FC = () => {
         onJsonChange={setImportJson}
         onClose={() => setShowImportModal(false)}
         onSave={handleImportSchema}
+      />
+
+      <ExportTSModal
+        isOpen={showExportTSModal}
+        code={tsCode}
+        onClose={() => setShowExportTSModal(false)}
       />
 
       <SaveQueryModal
@@ -327,6 +347,8 @@ const SQLConstructor: React.FC = () => {
         onToggleTerminal={() => setShowTerminal(!showTerminal)}
         showLinkManager={showLinkManager}
         onToggleLinkManager={() => setShowLinkManager(!showLinkManager)}
+        showLanding={showLanding}
+        onToggleLanding={() => setShowLanding(!showLanding)}
         onVisualize={() => setShowSchemaModal(true)}
         onImportSchema={() => {
           setIsEditingSchema(false);
@@ -334,6 +356,7 @@ const SQLConstructor: React.FC = () => {
           setImportJson("");
           setShowImportModal(true);
         }}
+        onExportTS={handleExportTS}
         onEditSchema={() => {
           setIsEditingSchema(true);
           setImportName(currentSchemaName);
@@ -372,7 +395,9 @@ const SQLConstructor: React.FC = () => {
       />
 
       <div className="flex-1 flex overflow-hidden">
-        {!schemas.length ? (
+        {showLanding ? (
+          <Landing onClose={() => setShowLanding(false)} />
+        ) : !schemas.length ? (
           <div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
             <div className="w-16 h-16 bg-slate-800 rounded-full flex items-center justify-center text-slate-500 mb-6">
               <Icons.Database className="w-8 h-8" />
@@ -408,7 +433,7 @@ const SQLConstructor: React.FC = () => {
               }}
             />
             <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
-              <main className="flex-1 overflow-y-auto bg-slate-900 p-6 md:p-10 scroll-smooth">
+              <main className="flex-1 overflow-y-auto bg-slate-200 dark:bg-slate-900 p-6 md:p-10 scroll-smooth">
                 <div className="max-w-full mx-auto pb-6">
                   {showLinkManager && (
                     <LinkManager

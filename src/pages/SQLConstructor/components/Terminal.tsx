@@ -168,7 +168,7 @@ export const Terminal: React.FC<TerminalProps> = ({
       </div>
 
       <div className="h-8 bg-slate-900/50 px-4 flex justify-between items-center border-b border-slate-800 select-none">
-        <span className="text-[10px] font-mono text-indigo-400 font-bold tracking-wider flex items-center gap-2">
+        <span className="text-[10px] font-mono text-green-400 font-bold tracking-wider flex items-center gap-2">
           TERMINAL // SQL OUTPUT
         </span>
         <div className="flex items-center gap-2">
@@ -185,14 +185,14 @@ export const Terminal: React.FC<TerminalProps> = ({
             className={`flex items-center gap-1.5 text-[10px] uppercase font-bold px-2 py-0.5 rounded transition-all ${
               copyFeedback
                 ? "bg-green-500/20 text-green-400"
-                : "bg-slate-800 hover:bg-slate-700 text-slate-400"
+                : "bg-slate-800 hover:bg-slate-700 text-red-700 dark:text-red-400"
             }`}
           >
             {copyFeedback ? (
               <>Copied!</>
             ) : (
               <>
-                <Icons.Copy className="w-3.5 h-3.5" /> Copy SQL
+                <Icons.Copy className="w-3.5 h-3.5 text-red-700 dark:text-red-400" /> Copy SQL
               </>
             )}
           </button>
