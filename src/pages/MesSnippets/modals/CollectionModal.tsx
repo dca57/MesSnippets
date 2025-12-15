@@ -158,7 +158,7 @@ export const CollectionModal: React.FC<CollectionModalProps> = ({
                         {collection.description || collection.language}
                       </p>
                     </div>
-                    <Icons.ChevronRight className="w-5 h-5text-purple-700 dark:text-purple-400 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
+                    <Icons.ChevronRight className="w-5 h-5 text-purple-700 dark:text-purple-400 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
                   </button>
                 );
               })}
