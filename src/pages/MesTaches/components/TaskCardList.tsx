@@ -12,6 +12,7 @@ import { TaskNote } from './common/TaskNote';
 import { SubtaskList } from './common/SubtaskList';
 import { useTaskTimer } from '../hooks/useTaskTimer';
 import { useTaskHighlight } from '../hooks/useTaskHighlight';
+import { ConfirmationModal } from './common/ConfirmationModal';
 
 interface TaskCardListProps {
     task: Task;
@@ -29,6 +30,7 @@ export const TaskCardList: React.FC<TaskCardListProps> = ({
   const { updateTask, deleteTask, toggleTaskTimer, toggleTaskPin, moveTaskToStatus, reorderTask, addSubtask, toggleSubtask, deleteSubtask, updateSubtask, enterFocusMode } = useTaskStore();
   const [showSubtasks, setShowSubtasks] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   // Detect Highlight Event (Creation or Move)
   const isHighlighted = useTaskHighlight(task);
@@ -276,7 +278,7 @@ export const TaskCardList: React.FC<TaskCardListProps> = ({
 
             {/* 11. Delete */}
             <div className="flex justify-center">
-                <button onClick={(e) => { e.stopPropagation(); deleteTask(task.id); }} className="text-slate-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all active:scale-90">
+                <button onClick={(e) => { e.stopPropagation(); setShowDeleteConfirm(true); }} className="text-slate-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all active:scale-90">
                     <Icons.Trash2 size={14} />
                 </button>
             </div>
@@ -297,6 +299,18 @@ export const TaskCardList: React.FC<TaskCardListProps> = ({
                 />
             </div>
         )}
+
+
+      <ConfirmationModal
+        isOpen={showDeleteConfirm}
+        title="Supprimer la tâche ?"
+        message={`Êtes-vous sûr de vouloir supprimer "${task.title}" ? Cette action est irréversible.`}
+        onConfirm={() => {
+            deleteTask(task.id);
+            setShowDeleteConfirm(false);
+        }}
+        onCancel={() => setShowDeleteConfirm(false)}
+      />
     </div>
   );
 };

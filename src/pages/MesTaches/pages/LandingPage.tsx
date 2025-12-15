@@ -4,7 +4,7 @@ import { Icons } from "../helpers/icons";
 
 export const LandingPageMT = () => {
   return (
-    <div className="min-h-full bg-slate-50 dark:bg-slate-900 animate-fade-in overflow-y-auto">
+    <div className="h-screen bg-slate-50 dark:bg-slate-900 animate-fade-in overflow-y-auto">
       {/* HERO SECTION */}
       <section className="relative overflow-hidden pt-20 pb-24 lg:pt-32 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

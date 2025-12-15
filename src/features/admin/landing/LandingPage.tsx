@@ -14,7 +14,7 @@ const LandingPage = () => {
   const { limits, loading } = usePlanLimits();
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 font-sans text-slate-900 dark:text-white pb-20">
+    <div className="h-screen overflow-y-auto bg-slate-50 dark:bg-slate-900 font-sans text-slate-900 dark:text-white pb-20">
       <Helmet>
         <title>
           {appName} - Votre bureau web réinventé | Gestionnaire de favoris &
