@@ -433,7 +433,7 @@ const SQLConstructor: React.FC = () => {
               }}
             />
             <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
-              <main className="flex-1 overflow-y-auto bg-slate-200 dark:bg-slate-900 p-6 md:p-10 scroll-smooth">
+              <main className="flex-1 overflow-y-auto bg-slate-100 dark:bg-slate-900 p-6 md:p-10 scroll-smooth">
                 <div className="max-w-full mx-auto pb-6">
                   {showLinkManager && (
                     <LinkManager
@@ -446,19 +446,9 @@ const SQLConstructor: React.FC = () => {
                     title="Columns & Filters"
                     onDrop={(item) => actions.addField(item.table, item.column)}
                     action={
-                      <div className="flex items-center gap-2">
-                        {fields.length > 0 && (
-                          <button
-                            onClick={() => {
-                              if (window.confirm("Remove all selected fields?"))
-                                actions.setFields([]);
-                            }}
-                            className="flex items-center gap-1 text-[10px] text-slate-500 hover:text-red-400 bg-slate-800 hover:bg-slate-700 px-2 py-1.5 rounded-md mr-2 border border-slate-700"
-                          >
-                            <Icons.Trash className="w-3 h-3" /> Clear
-                          </button>
-                        )}
-                        <div className="flex items-center bg-slate-800 rounded-md overflow-hidden border border-slate-700">
+                      <div className="flex items-center gap-3">
+                        
+                        <div className="flex items-center bg-slate-200 dark:bg-slate-800 rounded-md overflow-hidden border border-slate-700">
                           <button
                             onClick={() =>
                               actions.setFilterGroupCount((p) =>
@@ -492,12 +482,24 @@ const SQLConstructor: React.FC = () => {
                           className={`flex items-center gap-1.5 text-xs px-2.5 py-1.5 rounded-md font-medium border ${
                             isGroupByActive
                               ? "bg-indigo-600 text-white border-transparent"
-                              : "bg-slate-800 text-slate-400 border-slate-700"
+                              : "bg-slate-200 dark:bg-slate-800 text-slate-400 border-slate-700"
                           }`}
                         >
                           <Icons.Sigma className="w-3.5 h-3.5" />{" "}
                           {isGroupByActive ? "Group On" : "Group"}
                         </button>
+
+                        {fields.length > 0 && (
+                          <button
+                            onClick={() => {
+                              if (window.confirm("Remove all selected fields?"))
+                                actions.setFields([]);
+                            }}
+                            className="flex items-center gap-1 text-[10px] text-slate-500 hover:text-red-400 bg-slate-200 dark:bg-slate-800 hover:bg-slate-700 px-2 py-1.5 ml-8 rounded-md border border-slate-700"
+                          >
+                            <Icons.Trash className="w-3 h-3" /> Clear
+                          </button>
+                        )}
                       </div>
                     }
                   >

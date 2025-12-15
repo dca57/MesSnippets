@@ -31,7 +31,7 @@ export const Select: React.FC<SelectProps> = ({
       disabled={disabled}
       value={value}
       onChange={onChange}
-      className={`w-full appearance-none bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded px-2 py-1.5 pr-6 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-colors ${
+      className={`w-full appearance-none bg-slate-100 dark:bg-slate-800 border border-slate-400 dark:border-slate-700 hover:border-indigo-500 rounded px-2 py-1.5 pr-6 text-xs text-slate-600 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-colors ${
         value === "" && placeholder ? "text-slate-500" : ""
       } ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
     >

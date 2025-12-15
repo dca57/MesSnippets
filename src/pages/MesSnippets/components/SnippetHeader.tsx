@@ -197,6 +197,26 @@ export const SnippetHeader: React.FC<SnippetHeaderProps> = ({
               </div>
             )}
 
+            {/* Edit Mode Actions */}
+            {isEditing && (
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={onCancel}
+                  className="px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors flex items-center gap-2"
+                >
+                  <Icons.X className="w-4 h-4" />
+                  <span>Annuler</span>
+                </button>
+                <button
+                  onClick={onSave}
+                  className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors flex items-center gap-2"
+                >
+                  <Icons.Save className="w-4 h-4" />
+                  <span>Sauvegarder</span>
+                </button>
+              </div>
+            )}
+
 
             {/* Separator */}
             {!isEditing && <div className="w-px h-4 bg-slate-300 dark:bg-slate-600 mx-1"></div>}
@@ -268,24 +288,7 @@ export const SnippetHeader: React.FC<SnippetHeaderProps> = ({
         </div>
 
         {/* Edit Mode Actions (Save/Cancel) - Floating Right */}
-        {isEditing && (
-            <div className="flex items-center gap-2">
-              <button
-                onClick={onCancel}
-                className="px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors flex items-center gap-2"
-              >
-                <Icons.X className="w-4 h-4" />
-                <span>Annuler</span>
-              </button>
-              <button
-                onClick={onSave}
-                className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors flex items-center gap-2"
-              >
-                <Icons.Save className="w-4 h-4" />
-                <span>Sauvegarder</span>
-              </button>
-            </div>
-        )}
+
       </div>
 
       {/* Delete Confirmation Modal */}

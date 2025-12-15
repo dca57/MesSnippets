@@ -5,35 +5,38 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext";
-import { ThemeProvider } from "./context/ThemeContext";
-import { HeaderActionProvider } from "./context/HeaderActionContext";
-import { ViewProvider } from "./context/ViewContext";
-import HeaderBar from "./components/admin/HeaderBar";
-import ProtectedRoute from "./components/admin/ProtectedRoute";
-import TailwindSafelist from "./components/admin/TailwindSafelist";
+import { AuthProvider } from "./features/admin/context/AuthContext";
+import { ThemeProvider } from "./features/admin/context/ThemeContext";
+import { HeaderActionProvider } from "./features/admin/context/HeaderActionContext";
+import { ViewProvider } from "./features/admin/context/ViewContext";
+import HeaderBar from "./features/admin/components/HeaderBar";
+import ProtectedRoute from "./features/admin/components/ProtectedRoute";
+import TailwindSafelist from "./features/admin/components/TailwindSafelist";
 
 // Pages
 // Pages Template (Login, Register, ResetPassword)
-import Login from "./pages/admin/auth/Login";
-import Register from "./pages/admin/auth/Register";
-import ResetPassword from "./pages/admin/auth/ResetPassword";
-import AuthCallback from "./pages/admin/auth/AuthCallback";
+import Login from "./features/admin/auth/Login";
+import Register from "./features/admin/auth/Register";
+import ResetPassword from "./features/admin/auth/ResetPassword";
+import AuthCallback from "./features/admin/auth/AuthCallback";
 // Pages Applications
 import Home from "./pages/Home";
-import LandingPage from "./pages/admin/landing/LandingPage";
-import LandingPageLight from "./pages/admin/landing/LandingPageLight";
-import Admin from "./pages/admin/Admin";
-import MentionsLegales from "./pages/admin/legal/MentionsLegales";
-import PrivacyPolicy from "./pages/admin/legal/PrivacyPolicy";
-import User_Settings from "./pages/admin/User_Settings";
-import ThankYou from "./pages/admin/landing/ThankYou";
+import LandingPage from "./features/admin/landing/LandingPage";
+import LandingPageLight from "./features/admin/landing/LandingPageLight";
+import Admin from "./features/admin/Admin";
+import MentionsLegales from "./features/admin/legal/MentionsLegales";
+import PrivacyPolicy from "./features/admin/legal/PrivacyPolicy";
+import User_Settings from "./features/admin/User_Settings";
+import ThankYou from "./features/admin/landing/ThankYou";
 // Sidebar Pages
 import Main from "./pages/Main";
 import MesSnippets from "./pages/MesSnippets";
 import SQLConstructor from "./pages/SQLConstructor";
 import MesTimeSheets from "./pages/MesTimeSheets";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/MesSnippets/components/Dashboard";
+// MesTaches
+import MesTaches from "./pages/MesTaches";
+import { LandingPageMT } from "./pages/MesTaches/pages/LandingPage";
 
 const App = () => {
   return (
@@ -98,6 +101,11 @@ const App = () => {
                         <Route
                           path="/MesTimeSheets"
                           element={<MesTimeSheets />}
+                        />
+                        <Route path="/MesTaches" element={<MesTaches />} />
+                        <Route
+                          path="/MesTaches/about"
+                          element={<LandingPageMT />}
                         />
                       </Route>
                     </Route>

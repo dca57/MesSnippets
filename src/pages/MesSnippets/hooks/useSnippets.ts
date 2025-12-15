@@ -103,6 +103,17 @@ export function useSnippets(collectionId?: string, categoryId?: string) {
     }
   };
 
+  const reorderSnippets = async (newSnippets: Snippet[]) => {
+      setSnippets(newSnippets);
+      try {
+          await snippetService.reorderSnippets(newSnippets);
+      } catch (err) {
+          console.error("Failed to reorder snippets", err);
+          setError("Failed to reorder snippets");
+          loadSnippets();
+      }
+  };
+
   return {
     snippets,
     loading,
@@ -111,6 +122,7 @@ export function useSnippets(collectionId?: string, categoryId?: string) {
     updateSnippet,
     deleteSnippet,
     moveSnippet,
+    reorderSnippets,
     reload: loadSnippets
   };
 }

@@ -248,6 +248,18 @@ export const snippetService = {
   },
 
   /**
+   * Batch update snippet orders
+   */
+  async reorderSnippets(snippets: Snippet[]): Promise<void> {
+    const updates = snippets.map(s => 
+      (supabase.from('sni_snippets') as any)
+      .update({ order: s.order, category_id: s.categoryId }) // Update category_id too in case of move
+      .eq('id', s.id)
+    );
+    await Promise.all(updates);
+  },
+
+  /**
    * Initialize mock data (temporary)
    */
   _initMockData(snippets: Snippet[]) {

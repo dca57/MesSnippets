@@ -84,7 +84,7 @@ export const FilterInput: React.FC<FilterInputProps> = ({
       <input
         type="text"
         placeholder="= IIF(x, 1, 0) or > 100"
-        className="w-full bg-slate-900 border border-pink-500/30 rounded px-1.5 py-1.5 text-xs text-pink-300 font-mono focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-colors placeholder-pink-500/30"
+        className="w-full bg-slate-100 dark:bg-slate-900 border border-pink-500/30 rounded px-1.5 py-1.5 text-xs text-pink-300 font-mono focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-colors placeholder-pink-500/30"
         value={val}
         onChange={(e) => onChange(undefined, e.target.value)}
       />
@@ -153,7 +153,7 @@ export const FilterInput: React.FC<FilterInputProps> = ({
       type={op === "IN" || isArray ? "text" : htmlInputType}
       placeholder={placeholder}
       disabled={isNullOp}
-      className={`w-full bg-slate-800 border border-slate-700 rounded px-1.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-slate-900 disabled:border-slate-800`}
+      className={`w-full bg-slate-100 dark:bg-slate-800 border border-slate-400 dark:border-slate-700 rounded px-1.5 py-1.5 text-xs text-slate-700 dark:text-slate-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors disabled:opacity-20 disabled:cursor-not-allowed `}
       value={isNullOp ? "" : val}
       onChange={(e) => {
         const v = e.target.value;
@@ -240,7 +240,7 @@ export const HavingInput: React.FC<HavingInputProps> = ({
           className="px-0 text-center"
         />
       </div>
-      <div className="flex-grow min-w-0">
+      <div className="flex-grow min-w-0 ">
         {/* We use FilterInput but force it to behave like a controlled input without internal Operator logic if we want, 
                  but FilterInput is robust enough. Let's just use a direct input for simplicity here as Having is slightly specific. */}
         <input
@@ -260,7 +260,7 @@ export const HavingInput: React.FC<HavingInputProps> = ({
           }
           placeholder="Val"
           disabled={isNullOp}
-          className="w-full bg-slate-800 border border-slate-700 rounded px-1.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-slate-900 disabled:border-slate-800"
+          className="w-full bg-slate-100 dark:bg-slate-800 border border-slate-400 dark:border-slate-700 rounded px-1.5 py-1.5 text-xs text-slate-700 dark:text-slate-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors disabled:opacity-20 disabled:cursor-not-allowed"
           value={isNullOp ? "" : val}
           onChange={(e) => {
             const v = e.target.value;

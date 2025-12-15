@@ -36,7 +36,7 @@ export const DayTable: React.FC<DayTableProps> = ({ days, timesheet, holidays, e
                 <td className="p-2 align-top whitespace-nowrap opacity-0">
                   <div className="font-medium">Spacer</div>
                 </td>
-                <td className="p-1.5 opacity-0">
+                <td className="p-2 opacity-0">
                   <div className="flex flex-row items-center gap-2">
                       <div className="flex gap-1 items-center">
                         <select className={`${inputClass} w-24`} disabled><option>Mission</option></select>

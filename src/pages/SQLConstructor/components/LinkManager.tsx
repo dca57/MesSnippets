@@ -78,16 +78,19 @@ export const LinkManager: React.FC<LinkManagerProps> = ({
           {joins.map((join, idx) => (
             <div
               key={join.id}
-              className="flex items-center gap-2 bg-slate-900/40 p-2 rounded border border-slate-800"
+              className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 p-2 rounded border border-slate-100 dark:border-slate-800"
             >
+
+
+
               <div className="flex-1 flex gap-1">
                 {join.isAuto ? (
-                  <div className="w-full bg-slate-800/30 border border-slate-700/30 rounded px-2 py-1.5 text-xs flex items-center gap-1 text-slate-400 cursor-not-allowed">
-                    <span className="font-semibold text-slate-300">
+                  <div className="w-full bg-slate-200 dark:bg-slate-700 border border-slate-700/30 rounded px-2 py-1.5 text-xs flex items-center gap-0.5 text-slate-400 cursor-not-allowed">
+                    <span className="font-semibold text-slate-400 dark:text-slate-400">
                       {join.table1}
                     </span>
-                    <span className="text-slate-600">.</span>
-                    <span>{join.column1}</span>
+                    <span className="text-slate-400 dark:text-slate-400">.</span>
+                    <span className="text-slate-600 dark:text-slate-200">{join.column1}</span>
                   </div>
                 ) : (
                   <>
@@ -142,14 +145,14 @@ export const LinkManager: React.FC<LinkManagerProps> = ({
                 />
               </div>
 
-              <div className="flex-1 flex gap-1">
+              <div className="flex-1 flex gap-1 ">
                 {join.isAuto ? (
-                  <div className="w-full bg-slate-800/30 border border-slate-700/30 rounded px-2 py-1.5 text-xs flex items-center gap-1 text-slate-400 cursor-not-allowed">
-                    <span className="font-semibold text-slate-300">
+                  <div className="w-full bg-slate-200 dark:bg-slate-700 border border-slate-700/30 rounded px-2 py-1.5 text-xs flex items-center gap-0.5 text-slate-400 cursor-not-allowed">
+                    <span className="font-semibold text-slate-400 dark:text-slate-400">
                       {join.table2}
                     </span>
-                    <span className="text-slate-600">.</span>
-                    <span>{join.column2}</span>
+                    <span className="text-slate-400 dark:text-slate-400">.</span>
+                    <span className="text-slate-600 dark:text-slate-200">{join.column2}</span>
                   </div>
                 ) : (
                   <>

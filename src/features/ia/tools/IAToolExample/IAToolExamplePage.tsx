@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useIAToolExample } from "./useIAToolExample";
 import { Icons } from "@/core/helpers/icons";
 import { useAdminLLM } from "@/features/admin/hooks/useAdminLLM";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/features/admin/context/AuthContext";
 import { useIAConfig } from "@/features/ia/hooks/useIAConfig";
 import { useUserPlanLimits } from "@/features/admin/hooks/useUserPlanLimits";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../../../../supabase/config";
-import BackToMainButton from "@/components/admin/BackToMainButton";
-import TokenUsageIndicator from "@/components/admin/TokenUsageIndicator";
-import BadgePro from "@/components/admin/passerPro/BadgePro";
-import PasserProFull from "@/components/admin/passerPro/PasserProFull";
+import BackToMainButton from "@/features/admin/components/BackToMainButton";
+import TokenUsageIndicator from "@/features/admin/components/TokenUsageIndicator";
+import BadgePro from "@/features/admin/components/passerPro/BadgePro";
+import PasserProFull from "@/features/admin/components/passerPro/PasserProFull";
 
 const IAToolExamplePage: React.FC = () => {
   const { user } = useAuth();

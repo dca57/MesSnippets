@@ -109,6 +109,18 @@ export function useCollections() {
     createCollection,
     updateCollection,
     deleteCollection,
+    reorderCollections: async (newOrder: Collection[]) => {
+       // Optimistic update
+       setCollections(newOrder);
+       try {
+          await collectionService.reorderCollections(newOrder);
+       } catch (err) {
+          console.error("Failed to reorder collections", err);
+          // Revert or show error? For now just log.
+          setError("Failed to reorder collections");
+          loadCollections(); // Revert to server state
+       }
+    },
     reload: loadCollections
   };
 }

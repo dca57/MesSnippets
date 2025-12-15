@@ -4,9 +4,7 @@ import { MissionService } from '../services/missionService';
 import { useTimeSheet } from '../hooks/useTimeSheet';
 import { DayTable } from './DayTable';
 import { TimeSheetSideBar } from './TimeSheetSideBar';
-import { TimeSheetPrintView } from './TimeSheetPrintView';
-// @ts-ignore
-import html2pdf from 'html2pdf.js';
+import { generateTimeSheetPdf } from '../services/TimeSheetPdfService';
 
 interface Props {
   missionId: string;
@@ -39,42 +37,25 @@ export const TimeSheetEditor: React.FC<Props> = ({ missionId, year, month, onBac
   };
 
   const handleDownloadPdf = () => {
-    // Check is now cleaner as we import it
-    if (!html2pdf) {
-      setSaveMessage("Erreur: Librairie PDF non chargée.");
+    if (!mission || !timesheet) return;
+
+    try {
+      setSaveMessage("Génération du PDF...");
+      generateTimeSheetPdf({
+        mission,
+        timesheet,
+        monthDays,
+        year,
+        month,
+        stats,
+        holidays
+      });
+      setSaveMessage(null);
+    } catch (err) {
+      console.error(err);
+      setSaveMessage("Erreur lors de la génération du PDF.");
       setTimeout(() => setSaveMessage(null), 3000);
-      return;
     }
-
-    if (!printRef.current || !mission) return;
-    
-    const element = printRef.current;
-    
-    // Ensure element is visible for capture
-    element.style.display = 'block'; 
-
-    const opt = {
-      margin: [5, 10, 5, 10], 
-      filename: `CRA_${mission.codeMission}_${year}_${month}.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true, logging: false, backgroundColor: '#ffffff' }, 
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
-    };
-
-    setSaveMessage("Génération du PDF...");
-
-    html2pdf().set(opt as any).from(element).save()
-        .then(() => {
-            // Hide again after generation
-            element.style.display = 'none';
-            setSaveMessage(null);
-        })
-        .catch((err: any) => {
-            console.error(err);
-            setSaveMessage("Erreur lors de la génération du PDF.");
-            setTimeout(() => setSaveMessage(null), 3000);
-            element.style.display = 'none';
-        });
   };
 
   if (loading) return <div className="p-8 text-center text-slate-500">Chargement...</div>;
@@ -122,19 +103,7 @@ export const TimeSheetEditor: React.FC<Props> = ({ missionId, year, month, onBac
             onRemove={removeEntry} 
           />
         </div>
-      </div>
-      
-      {/* PRINT VIEW */}
-      <TimeSheetPrintView 
-        ref={printRef}
-        mission={mission}
-        timesheet={timesheet}
-        monthDays={monthDays}
-        holidays={holidays}
-        year={year}
-        month={month}
-        stats={stats}
-      />
+      </div>  
     </div>
   );
 };

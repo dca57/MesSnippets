@@ -10,7 +10,7 @@ const Main: React.FC = () => {
       
       {/* Main Content Area */}
       {/* <div className="flex-1 ml-64">  */}
-        <div className="flex-1 h-full w-full overflow-hidden">
+        <div className="flex-1 h-full w-full">
         <Outlet />
       </div>
     </div>

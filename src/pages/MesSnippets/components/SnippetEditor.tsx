@@ -16,6 +16,7 @@ interface SnippetEditorProps {
   showSyntaxHighlighting?: boolean;
   isWrappedMode?: boolean;
   isVBACollection?: boolean;
+  collectionName?: string;
 }
 
 export const SnippetEditor: React.FC<SnippetEditorProps> = ({
@@ -28,7 +29,8 @@ export const SnippetEditor: React.FC<SnippetEditorProps> = ({
   categories = [],
   showSyntaxHighlighting = true,
   isWrappedMode = false,
-  isVBACollection = false
+  isVBACollection = false,
+  collectionName
 }) => {
   const [copied, setCopied] = useState(false);
   const [showDependencies, setShowDependencies] = useState(false);
@@ -257,11 +259,16 @@ export const SnippetEditor: React.FC<SnippetEditorProps> = ({
                   margin: 0,
                   fontSize: '13px',
                   backgroundColor: 'transparent',
-                  paddingBottom: showDependencies && hasDependencies ? '2rem' : '1rem'
+                  paddingBottom: showDependencies && hasDependencies ? '2rem' : '1rem',
+                  whiteSpace: language === 'markdown' ? 'pre-wrap' : 'pre',
+                  wordBreak: language === 'markdown' ? 'break-word' : 'normal',
                 }}
+                wrapLines={language === 'markdown'}
+                wrapLongLines={language === 'markdown'}
                 codeTagProps={{
                   style: {
-                    fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace'
+                    fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
+                    whiteSpace: language === 'markdown' ? 'pre-wrap' : 'inherit',
                   }
                 }}
               >
@@ -270,7 +277,7 @@ export const SnippetEditor: React.FC<SnippetEditorProps> = ({
             ) : (
               <pre className={`p-4 font-mono text-[13px] text-slate-800 dark:text-slate-200 overflow-x-auto whitespace-pre-wrap ${
                  showDependencies && hasDependencies ? 'pb-8' : ''
-              }`}>
+              } ${language === 'markdown' ? 'whitespace-pre-wrap break-words' : 'whitespace-pre'}`}>
                 {displayCode}
               </pre>
             )}
@@ -344,6 +351,26 @@ export const SnippetEditor: React.FC<SnippetEditorProps> = ({
                 )}
               </div>
             </button>
+            {collectionName === 'VBS' && (
+              <button
+                onClick={() => {
+                  const blob = new Blob([displayCode], { type: 'text/plain;charset=utf-8' });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = `${snippet?.title || 'snippet'}.vbs`;
+                  a.click();
+                  URL.revokeObjectURL(url);
+                }}
+                className="px-3 py-2 rounded-lg shadow-lg transition-all bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-600"
+                title="Télécharger en .vbs"
+              >
+                <div className="flex items-center gap-2">
+                  <Icons.Download className="w-4 h-4" />
+                  <span className="text-sm font-medium">Télécharger .vbs</span>
+                </div>
+              </button>
+            )}
           </div>
         )}
       </div>

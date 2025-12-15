@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Icons } from "@/core/helpers/icons";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../features/admin/context/AuthContext";
 
 const Home: React.FC = () => {
   const { user } = useAuth();
@@ -18,11 +18,16 @@ const Home: React.FC = () => {
             Welcome to Template Starter
           </h1>
           <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-            A production-ready React template with authentication, plans, admin panel, and modern UI
+            A production-ready React template with authentication, plans, admin
+            panel, and modern UI
           </p>
           {user && (
             <p className="mt-4 text-lg text-slate-700 dark:text-slate-400">
-              Hello, <span className="font-semibold text-blue-600 dark:text-blue-400">{user.email}</span>!
+              Hello,{" "}
+              <span className="font-semibold text-blue-600 dark:text-blue-400">
+                {user.email}
+              </span>
+              !
             </p>
           )}
         </div>
@@ -86,24 +91,45 @@ const Home: React.FC = () => {
             🚀 Start Building
           </h2>
           <p className="text-slate-700 dark:text-slate-300 mb-4">
-            This is your home page. Start customizing it to build your application!
+            This is your home page. Start customizing it to build your
+            application!
           </p>
           <ul className="space-y-2 text-slate-600 dark:text-slate-400">
             <li className="flex items-start">
               <span className="mr-2">•</span>
-              <span>Add new pages in <code className="px-2 py-1 bg-slate-200 dark:bg-slate-600 rounded text-sm">src/pages/</code></span>
+              <span>
+                Add new pages in{" "}
+                <code className="px-2 py-1 bg-slate-200 dark:bg-slate-600 rounded text-sm">
+                  src/pages/
+                </code>
+              </span>
             </li>
             <li className="flex items-start">
               <span className="mr-2">•</span>
-              <span>Create reusable components in <code className="px-2 py-1 bg-slate-200 dark:bg-slate-600 rounded text-sm">src/components/</code></span>
+              <span>
+                Create reusable components in{" "}
+                <code className="px-2 py-1 bg-slate-200 dark:bg-slate-600 rounded text-sm">
+                  src/components/
+                </code>
+              </span>
             </li>
             <li className="flex items-start">
               <span className="mr-2">•</span>
-              <span>Update routing in <code className="px-2 py-1 bg-slate-200 dark:bg-slate-600 rounded text-sm">src/App.tsx</code></span>
+              <span>
+                Update routing in{" "}
+                <code className="px-2 py-1 bg-slate-200 dark:bg-slate-600 rounded text-sm">
+                  src/App.tsx
+                </code>
+              </span>
             </li>
             <li className="flex items-start">
               <span className="mr-2">•</span>
-              <span>Configure Supabase in <code className="px-2 py-1 bg-slate-200 dark:bg-slate-600 rounded text-sm">.env.local</code></span>
+              <span>
+                Configure Supabase in{" "}
+                <code className="px-2 py-1 bg-slate-200 dark:bg-slate-600 rounded text-sm">
+                  .env.local
+                </code>
+              </span>
             </li>
           </ul>
         </div>
@@ -120,15 +146,15 @@ const FeatureCard: React.FC<{
   gradient: string;
 }> = ({ icon, title, description, gradient }) => (
   <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-md border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-    <div className={`inline-flex items-center justify-center w-14 h-14 mb-4 rounded-lg bg-gradient-to-br ${gradient} shadow-md text-white`}>
+    <div
+      className={`inline-flex items-center justify-center w-14 h-14 mb-4 rounded-lg bg-gradient-to-br ${gradient} shadow-md text-white`}
+    >
       {icon}
     </div>
     <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
       {title}
     </h3>
-    <p className="text-slate-600 dark:text-slate-400">
-      {description}
-    </p>
+    <p className="text-slate-600 dark:text-slate-400">{description}</p>
   </div>
 );
 

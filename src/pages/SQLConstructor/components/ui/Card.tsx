@@ -48,8 +48,8 @@ export const Card = ({
 
   return (
     <div
-      className={`bg-slate-100 dark:bg-slate-800 border border-slate-800 dark:border-slate-700 text-slate-700 dark:text-slate-400 rounded-lg shadow-sm mb-6 overflow-hidden transition-colors ${
-        isOver ? "border-indigo-400 ring-1 ring-indigo-400" : "border-slate-800"
+      className={`bg-slate-100 dark:bg-slate-800 border border-slate-400 dark:border-slate-700 text-slate-700 dark:text-slate-400 rounded-lg shadow-sm mb-6 overflow-hidden transition-colors ${
+        isOver ? "border-indigo-400 ring-1 ring-indigo-400" : "border-slate-800 dark:border-slate-700"
       } ${className}`}
       onDragOver={onDrop ? handleDragOver : undefined}
       onDragLeave={onDrop ? handleDragLeave : undefined}

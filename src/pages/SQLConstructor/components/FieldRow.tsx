@@ -68,17 +68,17 @@ export const FieldRow: React.FC<FieldRowProps> = ({
       onDragEnter={(e) => onDragEnter(e, idx)}
       onDragEnd={onDragEnd}
       onDragOver={(e) => e.preventDefault()}
-      className={`flex items-stretch group bg-slate-900/40 rounded border transition-colors overflow-hidden ${
+      className={`flex items-stretch group bg-white dark:bg-slate-900/40 rounded border transition-colors overflow-hidden ${
         dragRef.current === idx ? "opacity-50" : ""
       } ${
         hasError
           ? "border-amber-600/50"
-          : "border-slate-800 hover:border-slate-700"
+          : "border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-700"
       }`}
       title={hasError ? "Table could not be joined automatically" : undefined}
     >
       {/* Static Left */}
-      <div className="w-[30px] flex items-center justify-center gap-1 border-r border-slate-800/50 bg-slate-900/20 px-1">
+      <div className="w-[30px] flex items-center justify-center gap-1 border-r border-slate-200 dark:border-slate-800/50 bg-slate-50 dark:bg-slate-900/20 px-1">
         <div className="cursor-grab active:cursor-grabbing text-slate-600 hover:text-slate-400 flex items-center">
           <Icons.Drag className="w-3 h-3" />
         </div>
@@ -91,31 +91,31 @@ export const FieldRow: React.FC<FieldRowProps> = ({
       </div>
 
       {/* PK / FK Column (Fixed Width) */}
-      <div className="w-[24px] flex items-center justify-center border-r border-slate-800/50 bg-slate-900/10">
+      <div className="w-[24px] flex items-center justify-center border-r border-slate-200 dark:border-slate-800/50 bg-slate-100 dark:bg-slate-900/10">
         <IdentityBadge isPK={isPK} isFK={isFK} />
       </div>
 
       {/* Field & Alias */}
-      <div className="w-[28%] flex items-center gap-1 p-1 border-r border-slate-800/50 bg-slate-800/5">
+      <div className="w-[28%] flex items-center gap-1 p-1 border-r border-slate-200 dark:border-slate-800/50 bg-slate-50 dark:bg-slate-800/5">
         <div className="w-[70%]">
           {field.groupByType === "Expression" ? (
             <input
               type="text"
               placeholder="SQL Expr (e.g. Upper(col))"
-              className={`w-full bg-slate-800 border rounded px-2 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors ${
+              className={`w-full bg-white dark:bg-slate-800 border rounded px-2 py-1.5 text-xs text-slate-900 dark:text-slate-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors ${
                 hasError
                   ? "border-amber-600/50 text-amber-500"
-                  : "border-slate-700"
+                  : "border-slate-300 dark:border-slate-700"
               }`}
               value={field.expression || ""}
               onChange={(e) => onUpdate(idx, { expression: e.target.value })}
             />
           ) : (
             <div
-              className={`w-full bg-slate-800/50 border rounded px-1 py-1.5 text-xs cursor-not-allowed flex items-center overflow-hidden whitespace-nowrap ${
+              className={`w-full bg-white dark:bg-slate-800/50 border rounded px-1 py-1.5 text-xs cursor-not-allowed flex items-center overflow-hidden whitespace-nowrap ${
                 hasError
                   ? "border-amber-600/50 text-amber-500"
-                  : "border-slate-700 text-slate-200"
+                  : "border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-200"
               }`}
             >
               <TypeBadge sqlType={type} />
@@ -134,7 +134,7 @@ export const FieldRow: React.FC<FieldRowProps> = ({
           <input
             type="text"
             placeholder="as Alias"
-            className="w-full bg-slate-800 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-300 placeholder-slate-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
+            className="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded px-2 py-1.5 text-xs text-slate-900 dark:text-slate-300 placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
             value={field.alias}
             onChange={(e) => onUpdate(idx, { alias: e.target.value })}
           />
@@ -143,7 +143,7 @@ export const FieldRow: React.FC<FieldRowProps> = ({
 
       {/* Group Block */}
       {isGroupByActive && (
-        <div className="w-[90px] p-1 border-r border-slate-800/50 bg-indigo-900/5 flex items-center">
+        <div className="w-[90px] p-1 border-r border-slate-200 dark:border-slate-800/50 bg-indigo-50/50 dark:bg-indigo-900/5 flex items-center">
           <Select
             value={field.groupByType || "Group By"}
             onChange={(e) => onUpdate(idx, { groupByType: e.target.value })}
@@ -155,7 +155,7 @@ export const FieldRow: React.FC<FieldRowProps> = ({
 
       {/* Having Block */}
       {isGroupByActive && (
-        <div className="w-[140px] p-1 border-r border-slate-800/50 bg-indigo-900/5 flex items-center">
+        <div className="w-[140px] p-1 border-r border-slate-200 dark:border-slate-800/50 bg-indigo-50/50 dark:bg-indigo-900/5 flex items-center">
           <HavingInput
             type={type}
             aggType={field.groupByType}
@@ -169,10 +169,10 @@ export const FieldRow: React.FC<FieldRowProps> = ({
       )}
 
       {/* Sort Block */}
-      <div className="w-[65px] p-1 border-r border-slate-800/50 bg-slate-800/5 items-center">
+      <div className="w-[65px] p-1 border-r border-slate-200 dark:border-slate-800/50 bg-slate-50 dark:bg-slate-800/5 items-center">
         <Select
           placeholder="None"
-          value={field.sortDir}
+          value={field.sortDir}          
           onChange={(e) =>
             onUpdate(idx, { sortDir: e.target.value as "ASC" | "DESC" | "" })
           }
@@ -191,7 +191,7 @@ export const FieldRow: React.FC<FieldRowProps> = ({
             <div
               key={groupIdx}
               className={`flex-1 flex gap-1 min-w-0 ${
-                groupIdx > 0 ? "pl-1 border-l border-slate-800/50" : ""
+                groupIdx > 0 ? "pl-1 border-l border-slate-200 dark:border-slate-800/50" : ""
               }`}
             >
               <div className="w-[60px] shrink-0">
@@ -235,7 +235,7 @@ export const FieldRow: React.FC<FieldRowProps> = ({
       <div className="w-[30px] flex justify-center items-center">
         <button
           onClick={() => onRemove(idx)}
-          className="text-slate-600 hover:text-red-400 transition-colors p-1"
+          className="text-slate-400 dark:text-slate-600 hover:text-red-500 dark:hover:text-red-400 transition-colors p-1"
         >
           <Icons.Trash className="w-3.5 h-3.5" />
         </button>
