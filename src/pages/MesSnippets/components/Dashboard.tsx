@@ -6,6 +6,7 @@ import { Icons } from "@/core/helpers/icons";
 import { supabase } from "@/supabase/config";
 import type { Database } from "@/supabase/types";
 import { getColorClasses } from "@/pages/MesSnippets/constants";
+import { ImportJsonModal } from "./ImportJsonModal";
 
 type Collection = Database["public"]["Tables"]["sni_collections"]["Row"];
 type Category = Database["public"]["Tables"]["sni_categories"]["Row"];
@@ -30,6 +31,7 @@ export default function Dashboard() {
   const [collectionStats, setCollectionStats] = useState<CollectionStat[]>([]);
   const [loading, setLoading] = useState(true);
   const [exporting, setExporting] = useState(false);
+  const [showImportModal, setShowImportModal] = useState(false);
 
   useEffect(() => {
     async function fetchStats() {
@@ -370,15 +372,28 @@ export default function Dashboard() {
           </button>
 
           <button
-            disabled={true}
-            className="px-6 py-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-600 font-medium rounded-lg flex items-center gap-2 cursor-not-allowed opacity-75"
-            title="Fonctionnalité à venir"
+            onClick={() => setShowImportModal(true)}
+            className="px-6 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-lg flex items-center gap-2 transition-colors shadow-sm"
+            title="Importer une sauvegarde JSON"
           >
             <Icons.Upload className="w-5 h-5" />
-            Import JSON (Bientôt)
+            Import JSON (Beta)
           </button>
         </div>
+        
+        <ImportJsonModal 
+          isOpen={showImportModal} 
+          onClose={() => setShowImportModal(false)}
+          onImportSuccess={() => {
+            // Trigger a refresh by forcing re-mount or refetch
+            // Since fetchStats is in useEffect[], easiest is to toggle a key or move fetchStats out.
+            // But for now, let's just reload window or modify Dashboard to expose a refresher.
+            // Actually, best practice is to move fetchStats definition to be reusable.
+            window.location.reload(); 
+          }}
+        />
       </div>
+
     </div>
   );
 }

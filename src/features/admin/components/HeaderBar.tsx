@@ -74,45 +74,45 @@ const HeaderBar: React.FC = () => {
               Mes Snippets
             </Link>
 
-            <button
-              onClick={() => navigate("/")}
+            <Link
+              to="/"
               title="Dashbord"
               className="ml-36 p-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500 text-purple-700 dark:text-purple-400 font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
             >
               <Icons.LayoutGrid className="w-4 h-4" />
-            </button>
+            </Link>
 
-            <button
-              onClick={() => navigate("/MesSnippets")}
+            <Link
+              to="/MesSnippets"
               title="Mes Snippets"
               className="ml-2 p-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500 text-purple-700 dark:text-purple-400 font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
             >
               <Icons.Code2 className="w-4 h-4" />
-            </button>
+            </Link>
 
-            <button
-              onClick={() => navigate("/SQLConstructor")}
+            <Link
+              to="/SQLConstructor"
               title="SQL Constructor"
               className="ml-2 p-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500 text-red-700 dark:text-red-400 font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
             >
               <Icons.Hammer className="w-4 h-4" />
-            </button>
+            </Link>
 
-            <button
-              onClick={() => navigate("/MesTimeSheets")}
+            <Link
+              to="/MesTimeSheets"
               title="Mes TimeSheets"
               className="ml-2 p-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500 text-green-700 dark:text-green-400 font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
             >
               <Icons.Clock className="w-4 h-4" />
-            </button>
+            </Link>
 
-            <button
-              onClick={() => navigate("/MesTaches")}
+            <Link
+              to="/MesTaches"
               title="Mes Tâches"
               className="ml-2 p-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500 text-blue-700 dark:text-blue-400 font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
             >
               <Icons.List className="w-4 h-4" />
-            </button>
+            </Link>
           </div>
 
           <div className="flex items-center gap-2">
