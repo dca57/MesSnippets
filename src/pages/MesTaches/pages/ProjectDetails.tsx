@@ -13,6 +13,8 @@ import { exportProjectToCSV } from '../services/exportService';
 import { exportProjectToPDF } from '../services/pdfExportService';
 import { useProjectFilters } from '../hooks/useProjectFilters';
 import { useProjectStatistics } from '../hooks/useProjectStatistics';
+import { WikiModal } from '../components/WikiModal';
+import { RecipesModal } from '../components/RecipesModal';
 
 export const ProjectDetails = ({ project }: { project: Project }) => {
   const allTasks = useTaskStore(s => s.tasks).filter(t => t.projectId === project.id);
@@ -21,6 +23,8 @@ export const ProjectDetails = ({ project }: { project: Project }) => {
   // View State
   const [viewMode, setViewMode] = useState<'kanban' | 'list' | 'gantt'>('kanban');
   const [newTaskTitle, setNewTaskTitle] = useState('');
+  const [showWikiModal, setShowWikiModal] = useState(false);
+  const [showRecipesModal, setShowRecipesModal] = useState(false);
   
   // PDF Comment Modal
   const [showPdfModal, setShowPdfModal] = useState(false);
@@ -114,6 +118,15 @@ export const ProjectDetails = ({ project }: { project: Project }) => {
                 </button>
 
                 <button 
+                    onClick={() => setShowWikiModal(true)}
+                    className="px-2 py-0.5 rounded text-[10px] font-bold uppercase border border-purple-800  dark:border-purple-300 bg-purple-400 dark:bg-purple-400 text-slate-600 hover:text-purple-600 hover:border-purple-200 transition-colors flex items-center gap-1.5 dark:text-slate-200 dark:hover:text-purple-300"
+                    title="Wiki du Projet"
+                >
+                    <Icons.BookOpen size={10} />
+                    Wiki
+                </button>
+
+                <button 
                     onClick={() => exportProjectToCSV(project.name, allTasks)}
                     className="px-2 py-0.5 rounded text-[10px] font-bold uppercase border border-slate-200 bg-white text-slate-600 hover:text-blue-600 hover:border-blue-200 transition-colors flex items-center gap-1.5 dark:bg-slate-800 dark:border-slate-600 dark:text-slate-400 dark:hover:text-blue-300"
                     title="Exporter en CSV"
@@ -129,6 +142,15 @@ export const ProjectDetails = ({ project }: { project: Project }) => {
                 >
                     <Icons.Printer size={10} />
                     PDF
+                </button>
+
+                <button 
+                    onClick={() => setShowRecipesModal(true)}
+                    className="px-2 py-0.5 rounded text-[10px] font-bold uppercase border border-purple-800 dark:border-purple-300 bg-purple-400 dark:bg-purple-400 text-slate-600 hover:text-purple-600 hover:border-purple-200 transition-colors flex items-center gap-1.5 dark:text-slate-200 dark:hover:text-purple-300"
+                    title="Cahier de Recettes"
+                >
+                    <Icons.FlaskConical size={10} />
+                    Recettes
                 </button>
 
                 <div className="relative group ml-2">
@@ -302,6 +324,23 @@ export const ProjectDetails = ({ project }: { project: Project }) => {
                  <div className="p-8 text-center text-slate-400 italic">Aucune tâche ne correspond aux filtres.</div>
              )}
           </div>
+      )}
+
+      {/* PDF COMMENT MODAL */}
+      {showWikiModal && (
+        <WikiModal 
+            project={project} 
+            onClose={() => setShowWikiModal(false)} 
+            onUpdateProject={updateProject} 
+        />
+      )}
+
+      {showRecipesModal && (
+        <RecipesModal 
+            project={project} 
+            tasks={allTasks}
+            onClose={() => setShowRecipesModal(false)} 
+        />
       )}
 
       {/* PDF COMMENT MODAL */}

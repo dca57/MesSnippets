@@ -33,6 +33,7 @@ import {
   Play,
   Pause,
   Filter,
+  Files,
   Archive,
   ArchiveRestore,
   Eye,
@@ -44,7 +45,9 @@ import {
   GripVertical,
   CircleHelp,
   Flag,
-  Info
+  Info,
+  BookOpen,
+  FlaskConical
 } from 'lucide-react';
 
 export const Icons = {
@@ -81,6 +84,7 @@ export const Icons = {
   Play,
   Pause,
   Filter,
+  Files,
   Archive,
   ArchiveRestore,
   Eye,
@@ -92,5 +96,7 @@ export const Icons = {
   GripVertical,
   CircleHelp,
   Flag,
-  Info
+  Info,
+  BookOpen,
+  FlaskConical
 };

@@ -9,6 +9,7 @@ import { EditableText } from './common/EditableText';
 import { TimeEstimator } from './common/TimeEstimator';
 import { DifficultyIcon } from './common/DifficultyIcon';
 import { TaskNote } from './common/TaskNote';
+import { TaskRecipes } from './common/TaskRecipes';
 import { SubtaskList } from './common/SubtaskList';
 import { useTaskTimer } from '../hooks/useTaskTimer';
 import { useTaskHighlight } from '../hooks/useTaskHighlight';
@@ -130,7 +131,7 @@ export const TaskCardList: React.FC<TaskCardListProps> = ({
                     : "bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/50")
     )}>
         {/* GRID LAYOUT FOR ROW */}
-        <div className="grid grid-cols-[20px_30px_30px_minmax(0,1fr)_100px_80px_30px_30px_30px_30px_auto_30px] items-center gap-4 p-2 min-h-[44px]">
+        <div className="grid grid-cols-[20px_30px_30px_minmax(0,1fr)_100px_80px_30px_140px_auto_30px] items-center gap-4 p-2 min-h-[44px]">
             
             {/* 0. Drag Handle */}
             <div className="flex justify-center cursor-grab active:cursor-grabbing text-slate-300 hover:text-slate-500">
@@ -211,42 +212,38 @@ export const TaskCardList: React.FC<TaskCardListProps> = ({
                 <DifficultyIcon difficulty={task.difficulty} onChange={(d) => updateTask(task.id, { difficulty: d })} />
             </div>
             
-            {/* 7. Note */}
-            <div className="flex justify-center">
-                <TaskNote notes={task.notes} onSave={(v) => updateTask(task.id, { notes: v })} size={14} />
-            </div>
-
-            {/* 8. Checklist */}
-            <div className="flex justify-center">
+            {/* 7. Icons Group (Notes, Recipes, Checklist, Archive) */}
+            <div className="grid grid-cols-4 w-full place-items-center h-full">
+                <TaskNote notes={task.notes} onSave={(v) => updateTask(task.id, { notes: v })} size={16} />
+                <TaskRecipes recettes={task.recettes} onSave={(v) => updateTask(task.id, { recettes: v })} size={16} />
+                
                 <button 
                     onClick={(e) => { e.stopPropagation(); setShowSubtasks(!showSubtasks); }}
                     className={cn(
-                        "shrink-0 hover:text-blue-600 transition-transform active:scale-90", 
+                        "flex items-center justify-center shrink-0 hover:text-blue-600 transition-transform active:scale-90", 
                         (task.subtasks.length > 0) ? "text-blue-500" : "text-slate-300"
                     )}
                     title="Checklist"
                 >
-                    <Icons.CheckSquare size={14} className={task.subtasks.length > 0 ? "fill-current/10" : ""} />
+                    <Icons.CheckSquare size={16} className={task.subtasks.length > 0 ? "fill-current/10" : ""} />
                 </button>
-            </div>
 
-             {/* 9. Archive */}
-             <div className="flex justify-center">
-                 {task.status !== 'archived' ? (
+                {task.status === 'done' && (
                      <button 
                         onClick={() => moveTaskToStatus(task.id, 'archived')}
-                        className="text-purple-400 hover:text-purple-600 dark:text-purple-500 dark:hover:text-purple-300 transition-transform active:scale-90"
+                        className="flex items-center justify-center text-green-500 hover:text-green-600 dark:text-green-400 dark:hover:text-green-300 transition-transform active:scale-90"
                         title="Archiver"
                      >
-                         <Icons.Archive size={14} />
+                         <Icons.Archive size={16} />
                      </button>
-                 ) : (
+                )}
+                 {task.status === 'archived' && (
                     <button 
                         onClick={() => moveTaskToStatus(task.id, 'done')}
-                        className="text-purple-500 hover:text-purple-600 transition-transform active:scale-90"
+                        className="flex items-center justify-center text-purple-500 hover:text-purple-600 transition-transform active:scale-90"
                         title="Désarchiver"
                      >
-                         <Icons.ArchiveRestore size={14} />
+                         <Icons.ArchiveRestore size={16} />
                      </button>
                  )}
             </div>

@@ -9,6 +9,7 @@ import { EditableText } from './common/EditableText';
 import { TimeEstimator } from './common/TimeEstimator';
 import { DifficultyIcon } from './common/DifficultyIcon';
 import { TaskNote } from './common/TaskNote';
+import { TaskRecipes } from './common/TaskRecipes';
 import { SubtaskList } from './common/SubtaskList';
 import { useTaskTimer } from '../hooks/useTaskTimer';
 import { useTaskHighlight } from '../hooks/useTaskHighlight';
@@ -148,17 +149,18 @@ export const TaskCardKanban: React.FC<TaskCardKanbanProps> = ({
             </button>
             <PriorityBadge priority={task.priority} onChange={(p) => updateTask(task.id, { priority: p })} />
             <DifficultyIcon difficulty={task.difficulty} onChange={(d) => updateTask(task.id, { difficulty: d })} />
-            <TaskNote notes={task.notes} onSave={(v) => updateTask(task.id, { notes: v })} size={13} />
+            <TaskNote notes={task.notes} onSave={(v) => updateTask(task.id, { notes: v })} size={16} />
+            <TaskRecipes recettes={task.recettes} onSave={(v) => updateTask(task.id, { recettes: v })} size={16} />
             
              <button 
                 onClick={(e) => { e.stopPropagation(); setShowSubtasks(!showSubtasks); }}
                 className={cn(
-                    "hover:text-blue-600 transition-transform active:scale-90", 
+                    "flex items-center justify-center hover:text-blue-600 transition-transform active:scale-90", 
                     (showSubtasks || task.subtasks.length > 0) ? "text-blue-500" : "text-slate-300"
                 )}
                 title="Checklist"
             >
-                <Icons.CheckSquare size={13} className={showSubtasks ? "fill-current" : task.subtasks.length > 0 ? "fill-current/10" : ""} />
+                <Icons.CheckSquare size={16} className={showSubtasks ? "fill-current" : task.subtasks.length > 0 ? "fill-current/10" : ""} />
             </button>
 
          </div>
@@ -174,10 +176,10 @@ export const TaskCardKanban: React.FC<TaskCardKanbanProps> = ({
              {task.status === 'done' && (
                  <button 
                     onClick={(e) => { e.stopPropagation(); moveTaskToStatus(task.id, 'archived'); }}
-                    className="text-purple-400 hover:text-purple-600 dark:text-purple-500 dark:hover:text-purple-300 p-1 transition-transform active:scale-90"
+                    className="flex items-center justify-center text-green-500 hover:text-green-600 dark:text-green-400 dark:hover:text-green-300 p-1 transition-transform active:scale-90"
                     title="Archiver"
                  >
-                     <Icons.Archive size={13} />
+                     <Icons.Archive size={16} />
                  </button>
              )}
              <button 

@@ -18,6 +18,7 @@ export interface Project {
   manualSpent: number; // In minutes
   deadline?: string; // ISO String (YYYY-MM-DD)
   createdAt: string;
+  wiki?: Record<string, string>; // Section Name -> Content
 }
 
 export interface Subtask {
@@ -31,6 +32,7 @@ export interface Task {
   projectId: string;
   title: string;
   notes?: string;
+  recettes?: string; // Scénarios de test / QA (Local only)
   subtasks: Subtask[]; // Checklist
   status: Status;
   priority: Priority;

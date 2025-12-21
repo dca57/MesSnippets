@@ -28,6 +28,7 @@ export const apiCreateProject = async (project: Project) => {
       manual_spent: project.manualSpent,
       created_at: project.createdAt,
     });
+    // Note: wiki is local-only for now, so we don't send it to Supabase
   } catch (e) {
     console.error("Supabase Sync Error (Create Project):", e);
   }
@@ -46,6 +47,9 @@ export const apiUpdateProject = async (
   try {
     // Map camelCase to snake_case for DB if needed
     const dbUpdates: any = { ...updates };
+    // Exclude wiki from DB updates as it is local for now
+    delete dbUpdates.wiki;
+
     if (updates.modeGestionCharge !== undefined)
       dbUpdates.mode_gestion_charge = updates.modeGestionCharge;
     if (updates.manualEstimated !== undefined)
@@ -93,9 +97,9 @@ export const apiCreateTask = async (task: Task) => {
       difficulty: task.difficulty,
       is_pinned: task.isPinned,
       order_index: task.order,
-      estimated_duration: task.estimatedDuration,
       spent_duration: task.spentDuration,
       notes: task.notes,
+      // recettes is local-only, not sent to DB
       subtasks: task.subtasks, // Stored as JSONB
       created_at: task.createdAt,
     });
@@ -113,6 +117,9 @@ export const apiUpdateTask = async (id: string, updates: Partial<Task>) => {
 
   try {
     const dbUpdates: any = { ...updates };
+    // Exclude recettes from DB updates as it is local for now
+    delete dbUpdates.recettes;
+
     if (updates.projectId !== undefined)
       dbUpdates.project_id = updates.projectId;
     if (updates.isPinned !== undefined) dbUpdates.is_pinned = updates.isPinned;

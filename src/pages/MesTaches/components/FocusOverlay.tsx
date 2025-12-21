@@ -11,6 +11,9 @@ import { STATUS_ORDER, STATUS_LABELS } from '../types/types';
 export const FocusOverlay = () => {
     const { tasks, projects, isFocusMode, toggleFocusMode, enterFocusMode, toggleTaskTimer, updateTask, addSubtask, toggleSubtask, deleteSubtask, updateSubtask, focusedTaskId } = useTaskStore();
     
+    // Local state for tab selection
+    const [activeTab, setActiveTab] = React.useState<'notes' | 'recettes'>('notes');
+
     // Find the currently active task
     const activeTask = tasks.find(t => t.id === focusedTaskId) || tasks.find(t => t.isRunning);
     
@@ -104,6 +107,13 @@ export const FocusOverlay = () => {
                         </button>
                     </div>
 
+                    {/* Project Name Display */}
+                    {activeProject && (
+                         <div className="mb-4 text-lg font-medium text-slate-500 dark:text-slate-400 border-l-2 border-slate-300 dark:border-slate-600 pl-2">
+                             Projet : <span className="font-bold text-slate-700 dark:text-slate-200">{activeProject.name}</span>
+                         </div>
+                    )}
+
                     {/* Task Selector */}
                     <div className="relative">
                         <select
@@ -172,15 +182,48 @@ export const FocusOverlay = () => {
                     )}
 
                     <div className="flex-1 flex flex-col">
-                        <h3 className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase mb-3 flex items-center gap-2">
-                            <Icons.FileText size={14} /> Notes
-                        </h3>
-                        <textarea 
-                            value={activeTask.notes || ''}
-                            onChange={(e) => updateTask(activeTask.id, { notes: e.target.value })}
-                            className="w-full flex-1 bg-slate-50 dark:bg-slate-800/30 text-slate-700 dark:text-slate-200 resize-none outline-none p-4 rounded-xl border border-slate-200 dark:border-slate-700/50 placeholder:text-slate-400 dark:placeholder:text-slate-600 text-sm leading-relaxed focus:ring-1 ring-blue-500/50"
-                            placeholder="Notes, liens, idées..."
-                        />
+                        {/* TABBED HEADER */}
+                        <div className="flex items-center gap-2 mb-3 border-b border-slate-100 dark:border-slate-700">
+                             <button 
+                                onClick={() => setActiveTab('notes')}
+                                className={cn(
+                                    "flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase transition-all border-b-2",
+                                    activeTab === 'notes' 
+                                        ? "text-blue-600 border-blue-500" 
+                                        : "text-slate-400 border-transparent hover:text-slate-600 hover:border-slate-200"
+                                )}
+                             >
+                                 <Icons.FileText size={14} /> Notes
+                             </button>
+                             <button 
+                                onClick={() => setActiveTab('recettes')}
+                                className={cn(
+                                    "flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase transition-all border-b-2",
+                                    activeTab === 'recettes' 
+                                        ? "text-purple-600 border-purple-500" 
+                                        : "text-slate-400 border-transparent hover:text-slate-600 hover:border-slate-200"
+                                )}
+                             >
+                                 <Icons.FlaskConical size={14} /> Recettes
+                             </button>
+                        </div>
+
+                        {/* CONTENT AREA */}
+                        {activeTab === 'notes' ? (
+                            <textarea 
+                                value={activeTask.notes || ''}
+                                onChange={(e) => updateTask(activeTask.id, { notes: e.target.value })}
+                                className="w-full flex-1 bg-slate-50 dark:bg-slate-800/30 text-slate-700 dark:text-slate-200 resize-none outline-none p-4 rounded-xl border border-slate-200 dark:border-slate-700/50 placeholder:text-slate-400 dark:placeholder:text-slate-600 text-sm leading-relaxed focus:ring-1 ring-blue-500/50"
+                                placeholder="Notes, liens, idées..."
+                            />
+                        ) : (
+                             <textarea 
+                                value={activeTask.recettes || ''}
+                                onChange={(e) => updateTask(activeTask.id, { recettes: e.target.value })}
+                                className="w-full flex-1 bg-purple-50 dark:bg-purple-900/10 text-slate-700 dark:text-slate-200 resize-none outline-none p-4 rounded-xl border border-purple-100 dark:border-purple-800/30 placeholder:text-purple-300 dark:placeholder:text-purple-700 text-sm leading-relaxed focus:ring-1 ring-purple-500/50"
+                                placeholder="Scénarios de test, critères d'acceptation, bugs..."
+                            />
+                        )}
                     </div>
                 </div>
             </div>
