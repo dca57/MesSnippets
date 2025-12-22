@@ -12,6 +12,7 @@ import { ViewProvider } from "./features/admin/context/ViewContext";
 import HeaderBar from "./features/admin/components/HeaderBar";
 import ProtectedRoute from "./features/admin/components/ProtectedRoute";
 import TailwindSafelist from "./features/admin/components/TailwindSafelist";
+import PageTitleUpdater from "./features/admin/components/PageTitleUpdater";
 
 // Pages
 // Pages Template (Login, Register, ResetPassword)
@@ -47,6 +48,7 @@ const App = () => {
             <Router>
               <div className="h-screen flex flex-col text-slate-900 dark:text-slate-50 bg-slate-200 dark:bg-slate-800 transition-colors duration-300 overflow-hidden">
                 <TailwindSafelist />
+                <PageTitleUpdater />
                 <div className="flex-none">
                   <HeaderBar />
                 </div>
@@ -93,7 +95,7 @@ const App = () => {
                       <Route element={<Main />}>
                         <Route index element={<Dashboard />} />
                         <Route path="/" element={<Dashboard />} />
-                        <Route path="/MesSnippets" element={<MesSnippets />} />
+                        <Route path="/MesSnippets/*" element={<MesSnippets />} />
                         <Route
                           path="/SQLConstructor"
                           element={<SQLConstructor />}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { ViewMode, Snippet } from "./MesSnippets/types/index";
 import { CollectionSelector } from "./MesSnippets/components/CollectionSelector";
 import { SideBar } from "./MesSnippets/components/Sidebar";
@@ -10,7 +11,9 @@ import { CollectionModal } from "./MesSnippets/modals/CollectionModal";
 import { DependenciesModal } from "./MesSnippets/modals/DependenciesModal";
 import { TagsModal } from "./MesSnippets/modals/TagsModal";
 import { BarreOnglets, Tab } from "./MesSnippets/components/BarreOnglets";
+import { ConfirmModal } from "./MesSnippets/modals/ConfirmModal";
 import { Icons } from '@/core/helpers/icons';
+import { useSnippetUiStore } from './MesSnippets/store/snippetUiStore';
 
 // Custom Hooks
 import { useCollections } from "./MesSnippets/hooks/useCollections";
@@ -40,6 +43,16 @@ const MesSnippets: React.FC = () => {
     reorderCollections
   } = useCollections();
 
+  const location = useLocation();
+
+  // Sync state with URL for deep linking
+  useEffect(() => {
+    const match = location.pathname.match(/\/MesSnippets\/collection\/([^/]+)/);
+    if (match && match[1] && match[1] !== activeCollectionId) {
+      setActiveCollectionId(match[1]);
+    }
+  }, [location.pathname, setActiveCollectionId, activeCollectionId]);
+
   const {
     categories,
     createCategory,
@@ -57,9 +70,19 @@ const MesSnippets: React.FC = () => {
     reorderSnippets
   } = useSnippets(activeCollectionId || undefined);
 
-  // Tab State
-  const [tabs, setTabs] = useState<TabState[]>([]);
-  const [activeTabId, setActiveTabId] = useState<string | null>(null);
+  // UI Store
+  const { 
+     tabs, 
+     activeTabId, 
+     isSidebarOpen,
+     addTab,
+     closeTab,
+     setActiveTabId,
+     updateTab,
+     setTabs, // Careful, store handles array replacement
+     toggleSidebar
+  } = useSnippetUiStore();
+
   const [showLimitEffect, setShowLimitEffect] = useState(false);
 
   const triggerLimitEffect = () => {
@@ -67,8 +90,7 @@ const MesSnippets: React.FC = () => {
     setTimeout(() => setShowLimitEffect(false), 300);
   };
 
-  // UI State
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  // UI State - specific local ones (modals etc)
   const [preSelectedCategoryId, setPreSelectedCategoryId] = useState<
     string | null
   >(null);
@@ -83,6 +105,10 @@ const MesSnippets: React.FC = () => {
   const [isCollectionModalOpen, setIsCollectionModalOpen] = useState(false);
   const [isDependenciesModalOpen, setIsDependenciesModalOpen] = useState(false);
   const [isTagsModalOpen, setIsTagsModalOpen] = useState(false);
+
+  // Confirm Modal state
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [pendingTabCloseId, setPendingTabCloseId] = useState<string | null>(null);
 
   // Derive active tab data
   const activeTab = tabs.find((t) => t.snippetId === activeTabId);
@@ -117,11 +143,11 @@ const MesSnippets: React.FC = () => {
   // Update snapshot when live snippet changes
   useEffect(() => {
     if (activeSnippetLive) {
-      setTabs(prev => prev.map(t => 
-        t.snippetId === activeSnippetLive.id 
-          ? { ...t, snapshot: activeSnippetLive }
-          : t
-      ));
+      // Update store tab snapshot
+      const existing = tabs.find(t => t.snippetId === activeSnippetLive.id);
+      if (existing) {
+         updateTab(activeSnippetLive.id, { snapshot: activeSnippetLive });
+      }
     }
   }, [activeSnippetLive]);
 
@@ -139,20 +165,16 @@ const MesSnippets: React.FC = () => {
       }
 
       // Find the snippet data to create the tab
-      // NOTE: snippet might not be in 'snippets' if it belongs to another collection?
-      // But handleSelectSnippet is usually called from SideBar which displays 'snippets'.
-      // So it should be there.
       const snippet = snippets.find(s => s.id === snippetId);
       if (!snippet) return; 
 
-      setTabs(prev => [...prev, {
+      addTab({
         snippetId: snippet.id,
         snapshot: snippet,
         viewMode: "view",
         editedCode: "",
         collectionId: activeCollectionId || undefined
-      }]);
-      setActiveTabId(snippetId);
+      });
     }
   };
 
@@ -163,67 +185,61 @@ const MesSnippets: React.FC = () => {
     if (!tab) return;
 
     if (tab.viewMode === "edit" && tab.editedCode !== tab.snapshot.code) {
-       // Check if there are actual changes
-       const wantToSave = window.confirm("Le snippet a été modifié. Voulez-vous sauvegarder les modifications ?\n\nOK = Sauvegarder\nAnnuler = Fermer sans sauvegarder");
-       
-       if (wantToSave) {
-          // Save and close
-          handleSaveEdit().then(() => {
-             closeTabInternal(tabId);
-          });
-          return;
-       } else {
-         // Discard and close is implicit if they clicked Cancel on "Save?" usually,
-         // BUT window.confirm is boolean.
-         // If I want "Cancel = Cancel Closing", I need 3 options. Standard alert doesn't provide 3.
-         // Given "validation rapide du Oui avec Entrée", confirm is "OK to Save?". 
-         // If Cancel, we should probably Ask "Discard changes?".
-         // Let's keep it simple: "Sauvegarder ?" -> OK=Save&Close. Cancel->Proceed to close? Or Cancel=Abort?
-         // User requirement: "modale pour proposer la sauvegarde 'oui'/'non'"
-         // If I use confirm: "Do you want to save?"
-         // Yes -> Save -> Close.
-         // No -> Close (Discard).
-         // This seems to fit "Oui/Non". "Cancel" acts as No.
-         // So I will just proceed to close if they say No.
-         closeTabInternal(tabId);
-         return;
-       }
+       // Open modal instead of confirm
+       setPendingTabCloseId(tabId);
+       setIsConfirmModalOpen(true);
+       return;
     }
 
-    closeTabInternal(tabId);
+    closeTab(tabId);
   };
 
-  const closeTabInternal = (tabId: string) => {
-    const newTabs = tabs.filter(t => t.snippetId !== tabId);
-    setTabs(newTabs);
-    
-    // If we closed the active tab, activate another one
-    if (activeTabId === tabId) {
-      // Logic: Go to the one to the right, or left if last.
-      // Filtered tabs are already without the closed one.
-      // Let's pick the last one in the list (most recently active or added? usually one next to it).
-      // Simple logic: pick the last one.
-      if (newTabs.length > 0) {
-        setActiveTabId(newTabs[newTabs.length - 1].snippetId);
-      } else {
-        setActiveTabId(null);
-      }
+  const handleConfirmSaveAndClose = async () => {
+     if (pendingTabCloseId) {
+        // We need to trigger save for the specific tab.
+        // handleSaveEdit saves ACTIVE snippet. We must verify if pendingTabCloseId is active?
+        // Or refactor handleSaveEdit to accept ID.
+        // For now, let's assume we can save only if it's the active one or switch to it?
+        // Simpler: switch to it, save, then close.
+        // Actually, handleSaveEdit relies on selectedSnippet which depends on ActiveTab.
+        // So we might need to temporarily activate it or handle update manually.
+        
+        // Find the tab data
+        const tab = tabs.find(t => t.snippetId === pendingTabCloseId);
+        if (tab) {
+             await updateSnippetFn(tab.snippetId, {
+                code: tab.editedCode,
+                updatedAt: new Date().toISOString(),
+             });
+             // No need to update viewMode since we close it right after
+             closeTab(pendingTabCloseId);
+        }
+     }
+     setIsConfirmModalOpen(false);
+     setPendingTabCloseId(null);
+  };
+
+  const handleDiscardClose = () => {
+    if (pendingTabCloseId) {
+        closeTab(pendingTabCloseId);
     }
+    setIsConfirmModalOpen(false);
+    setPendingTabCloseId(null);
   };
 
   const handleActivateTab = (tabId: string) => {
     setActiveTabId(tabId);
   };
 
+  // ... (rest of component until return)
+
+
+
 
   const handleEdit = () => {
     if (selectedSnippet) {
-      setTabs(prev => prev.map(t => 
-        t.snippetId === selectedSnippet.id 
-          ? { ...t, viewMode: "edit", editedCode: selectedSnippet.code }
-          : t
-      ));
-      if (isWrappedMode) setIsWrappedMode(false);
+       updateTab(selectedSnippet.id, { viewMode: "edit", editedCode: selectedSnippet.code });
+       if (isWrappedMode) setIsWrappedMode(false);
     }
   };
 
@@ -234,11 +250,7 @@ const MesSnippets: React.FC = () => {
         updatedAt: new Date().toISOString(),
       });
       // Update local tab state and switch to view
-      setTabs(prev => prev.map(t => 
-        t.snippetId === selectedSnippet.id 
-          ? { ...t, viewMode: "view", snapshot: { ...t.snapshot, code: activeTab.editedCode } }
-          : t
-      ));
+      updateTab(selectedSnippet.id, { viewMode: "view", snapshot: { ...activeTab.snapshot, code: activeTab.editedCode } });
     }
   };
 
@@ -261,18 +273,14 @@ const MesSnippets: React.FC = () => {
 
   const handleCancelEdit = () => {
     if (activeTab) {
-      setTabs(prev => prev.map(t => 
-        t.snippetId === activeTab.snippetId
-          ? { ...t, viewMode: "view", editedCode: "" }
-          : t
-      ));
+       updateTab(activeTab.snippetId, { viewMode: "view", editedCode: "" });
     }
   };
 
   const handleDelete = async () => {
     if (selectedSnippet) {
       await deleteSnippetFn(selectedSnippet.id);
-      closeTabInternal(selectedSnippet.id);
+      closeTab(selectedSnippet.id);
     }
   };
 
@@ -290,14 +298,15 @@ const MesSnippets: React.FC = () => {
     if (newSnippet) {
        // Open new snippet in a tab
        if (tabs.length < MAX_TABS) {
-          setTabs(prev => [...prev, {
+          addTab({
              snippetId: newSnippet.id,
              snapshot: newSnippet,
              viewMode: "view",
              editedCode: "",
              collectionId: activeCollectionId || undefined
-           }]);
-           setActiveTabId(newSnippet.id);
+           });
+           // setActiveTabId is handled by addTab but explicit set might be safer if checks failed?
+           // Store implementation sets it.
        } else {
           triggerLimitEffect();
        }
@@ -340,14 +349,13 @@ const MesSnippets: React.FC = () => {
       });
       if (newSnippet) {
         // Open the new snippet
-         setTabs(prev => [...prev, {
+         addTab({
             snippetId: newSnippet.id,
             snapshot: newSnippet,
             viewMode: "view",
             editedCode: "",
             collectionId: activeCollectionId || undefined
-          }]);
-          setActiveTabId(newSnippet.id);
+          });
       }
     }
     setIsSnippetModalOpen(false);
@@ -547,11 +555,9 @@ const MesSnippets: React.FC = () => {
                   isEditing={viewMode === "edit"}
                   editedCode={editedCode}
                   onCodeChange={(code) => {
-                     setTabs(prev => prev.map(t => 
-                        t.snippetId === activeTabId 
-                           ? { ...t, editedCode: code }
-                           : t
-                     ));
+                     if (activeTabId) {
+                        updateTab(activeTabId, { editedCode: code });
+                     }
                   }}
                   allSnippets={snippets} 
                   categories={categories}
@@ -626,6 +632,21 @@ const MesSnippets: React.FC = () => {
           onSave={handleSaveTags}
         />
       )}
+
+      <ConfirmModal 
+        isOpen={isConfirmModalOpen}
+        title="Modifications non enregistrées"
+        message="Le snippet a été modifié. Voulez-vous sauvegarder les modifications ?"
+        confirmLabel="Oui"
+        discardLabel="Non"
+        cancelLabel="Annuler"
+        onConfirm={handleConfirmSaveAndClose}
+        onDiscard={handleDiscardClose}
+        onCancel={() => {
+            setIsConfirmModalOpen(false);
+            setPendingTabCloseId(null);
+        }}
+      />
     </div>
   );
 };

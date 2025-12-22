@@ -63,21 +63,11 @@ const HeaderBar: React.FC = () => {
     <nav className="bg-slate-200 dark:bg-slate-800 border-b-2   border-slate-400 dark:border-slate-600 sticky top-0 z-50">
       <div className="">
         <div className="flex justify-between h-12 items-center">
-          <div className="flex items-center gap-1">
-            <Link to="/" className="ml-3 flex text-xl font-bold text-[#756FDE]">
-              <img src={Logo} alt="Logo" className="w-8 h-8" />
-            </Link>
-            <Link
-              to="/"
-              className="flex text-xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400"
-            >
-              Mes Snippets
-            </Link>
-
+          <div className="flex items-center gap-1 ml-2">           
             <Link
               to="/"
               title="Dashbord"
-              className="ml-36 p-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500 text-purple-700 dark:text-purple-400 font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
+              className="flex p-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500 text-purple-700 dark:text-purple-400 font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
             >
               <Icons.LayoutGrid className="w-4 h-4" />
             </Link>

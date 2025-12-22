@@ -1,4 +1,4 @@
-# Template Starter
+# Mes Snippets
 
 A minimal, production-ready React template with authentication, plans, admin panel, and modern UI. Built with React, Vite, TypeScript, TailwindCSS, and Supabase.
 

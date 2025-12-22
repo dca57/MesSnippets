@@ -39,7 +39,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
         <div className="px-6 py-4 border-b border-slate-300 dark:border-slate-700 flex justify-between items-center bg-slate-100 dark:bg-slate-800">
           <h2 className="text-xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
             <Icons.HelpCircle size={24} className="text-blue-600" />
-            Template Starter - Help
+            Mes Snippets - Help
           </h2>
           <button
             onClick={onClose}
@@ -50,9 +50,9 @@ const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
         </div>
 
         <div className="p-6 overflow-y-auto space-y-4">
-          <HelpSection icon={Icons.Rocket} title="What is Template Starter?">
+          <HelpSection icon={Icons.Rocket} title="What is Mes Snippets?">
             <p>
-              Template Starter is a minimal, production-ready React template with everything you need to build modern web applications:
+              Mes Snippets is a web application to manage my snippets:
             </p>
             <ul className="list-disc list-inside mt-1 ml-1 space-y-1">
               <li>Complete authentication system (email/password + Google OAuth)</li>

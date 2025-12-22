@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Collection } from '../types/index';
 import { collectionService } from '../services/collectionService';
+import { useSnippetUiStore } from '../store/snippetUiStore';
+
 /**
  * Custom hook for managing collections
  */
 export function useCollections() {
   const [collections, setCollections] = useState<Collection[]>([]);
-  const [activeCollectionId, setActiveCollectionId] = useState<string | null>(null);
+  const { activeCollectionId, setActiveCollectionId } = useSnippetUiStore();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

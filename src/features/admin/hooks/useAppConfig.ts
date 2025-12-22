@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../../../supabase/config';
 
 // Default configuration
-export const APP_DEFAULT_NAME = 'Template Starter';
-export const APP_DEFAULT_SUBNAME = 'Your App Foundation';
+export const APP_DEFAULT_NAME = 'Mes Snippets';
+export const APP_DEFAULT_SUBNAME = 'Gestion de mes snippets';
 export const APP_DEFAULT_URL = window.location.origin;
 
 export interface AppGlobalConfig {

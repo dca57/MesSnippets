@@ -62,7 +62,7 @@ const Dashboard: React.FC = () => {
           <div className="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-700">
             <span className="text-sm text-slate-500">Platform</span>
             <p className="text-2xl font-bold text-blue-600">
-              Template Starter{' '}
+              Mes Snippets{' '}
               <span className="text-xs font-normal text-slate-400">v1.0.0</span>
             </p>
           </div>

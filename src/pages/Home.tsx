@@ -15,11 +15,10 @@ const Home: React.FC = () => {
             <Icons.Rocket className="w-10 h-10 text-white" />
           </div>
           <h1 className="text-5xl font-bold text-slate-900 dark:text-white mb-4">
-            Welcome to Template Starter
+            Welcome to Mes Snippets
           </h1>
           <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-            A production-ready React template with authentication, plans, admin
-            panel, and modern UI
+            Gestion de mes snippets
           </p>
           {user && (
             <p className="mt-4 text-lg text-slate-700 dark:text-slate-400">

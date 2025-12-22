@@ -78,7 +78,8 @@ export default function Dashboard() {
           };
         });
 
-        // Sort by name or any other criteria if needed? Defaulting to API order (usually insertion or ID)
+        // Sort by snippetCount descending
+        statsByCollection.sort((a, b) => b.snippetCount - a.snippetCount);
         setCollectionStats(statsByCollection);
       } catch (error) {
         console.error("Error fetching dashboard stats:", error);
@@ -284,14 +285,13 @@ export default function Dashboard() {
             <h2 className="text-xl font-semibold text-slate-900 dark:text-white">
               Détails par Collection
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
               {collectionStats.map((col) => {
                 // Determine icon component to use
-                // If col.icon matches a key in Icons, use it, otherwise default to Folder
                 const IconComponent =
                   col.icon && (Icons as any)[col.icon]
                     ? (Icons as any)[col.icon]
-                    : Icons.Folder; // Default icon if none or invalid
+                    : Icons.Folder;
 
                 // Get color classes for icon and text
                 const colorClasses = getColorClasses(col.color || "blue");
@@ -299,39 +299,32 @@ export default function Dashboard() {
                 return (
                   <div
                     key={col.id}
-                    className="px-5 py-2 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col gap-3 transition-all hover:shadow-md"
-                    style={{ borderLeft: `4px solid ${colorClasses.hex}` }}
+                    className="p-3 bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col justify-between transition-all hover:shadow-md group"
+                    style={{ borderLeft: `3px solid ${colorClasses.hex}` }}
+                    onClick={() => navigate(`/MesSnippets/collection/${col.id}`)}
                   >
                     <div className="flex items-center gap-3">
                       <div
-                        className={`p-2 rounded-lg ${colorClasses.bgLight} ${colorClasses.text}`}
+                        className={`p-2 rounded-md shrink-0 ${colorClasses.bgLight} ${colorClasses.text} group-hover:scale-110 transition-transform`}
                       >
-                        <IconComponent className="w-5 h-5" />
+                        <IconComponent className="w-4 h-4" />
                       </div>
-                      <h3
-                        className="font-semibold text-slate-800 dark:text-slate-100 truncate"
-                        title={col.name}
-                      >
-                        {col.name}
-                      </h3>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-2 mt-2">
-                      <div className="flex flex-col p-2 bg-slate-50 dark:bg-slate-700/50 rounded-lg">
-                        <span className="text-xs text-slate-500 dark:text-slate-400">
-                          Catégories
-                        </span>
-                        <span className="text-lg font-bold text-slate-700 dark:text-slate-200">
-                          {col.categoryCount}
-                        </span>
-                      </div>
-                      <div className="flex flex-col p-2 bg-slate-50 dark:bg-slate-700/50 rounded-lg">
-                        <span className="text-xs text-slate-500 dark:text-slate-400">
-                          Snippets
-                        </span>
-                        <span className="text-lg font-bold text-slate-700 dark:text-slate-200">
-                          {col.snippetCount}
-                        </span>
+                      <div className="flex-1 min-w-0">
+                        <h3
+                          className="font-semibold text-sm text-slate-800 dark:text-slate-100 truncate"
+                          title={col.name}
+                        >
+                          {col.name}
+                        </h3>
+                        <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                            <span>
+                                <span className="font-medium text-slate-700 dark:text-slate-300">{col.categoryCount}</span> Cat.
+                            </span>
+                            <span className="text-slate-300 dark:text-slate-600">•</span>
+                            <span>
+                                <span className="font-medium text-slate-700 dark:text-slate-300">{col.snippetCount}</span> Snip.
+                            </span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -377,7 +370,7 @@ export default function Dashboard() {
             title="Importer une sauvegarde JSON"
           >
             <Icons.Upload className="w-5 h-5" />
-            Import JSON (Beta)
+            Import JSON
           </button>
         </div>
         
