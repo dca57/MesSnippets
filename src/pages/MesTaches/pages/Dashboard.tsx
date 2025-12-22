@@ -4,6 +4,8 @@ import { Icons } from '../helpers/icons';
 import { useTaskStore } from '../store/taskStore';
 import { ProjectCard } from '../components/ProjectCard';
 
+import { migrateToSupabase } from '../services/migrationService';
+
 export const Dashboard = () => {
     const { projects, addProject, deleteProject } = useTaskStore();
     const [newProjectClient, setNewProjectClient] = useState('');
@@ -11,6 +13,9 @@ export const Dashboard = () => {
     
     // State for deletion modal
     const [projectToDelete, setProjectToDelete] = useState<string | null>(null);
+
+    // State for migration
+    const [isMigrating, setIsMigrating] = useState(false);
 
     const handleAddProject = (e: React.FormEvent) => {
         e.preventDefault();
@@ -27,12 +32,36 @@ export const Dashboard = () => {
         }
     };
 
+    const handleMigration = async () => {
+        if (!confirm("Voulez-vous vraiment migrer vos données locales vers le Cloud ? Assurez-vous d'être connecté.")) return;
+        
+        setIsMigrating(true);
+        const result = await migrateToSupabase();
+        setIsMigrating(false);
+
+        if (result.success) {
+            alert(`Migration réussie !\nProjets: ${result.projectsCount}\nTâches: ${result.tasksCount}`);
+        } else {
+            alert(`Erreur lors de la migration: ${JSON.stringify(result.error)}`);
+        }
+    };
+
     return (
         <div className="h-full overflow-y-auto p-6 animate-fade-in relative">
             <div className="flex items-center justify-between mb-8">
                 <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Tableau de Bord</h1>
-                <div className="text-sm text-slate-500 dark:text-slate-400 font-medium bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-700">
-                    {projects.length} Projets actifs
+                <div className="flex items-center gap-3">
+                     <button 
+                        onClick={handleMigration}
+                        disabled={isMigrating}
+                        className="text-xs font-bold px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full transition-colors shadow-sm disabled:opacity-50"
+                     >
+                         {isMigrating ? <Icons.Loader size={14} className="animate-spin inline" /> : <Icons.CloudUpload size={14} className="inline mr-1" />}
+                         {isMigrating ? " Migration..." : "Migrer vers Cloud"}
+                     </button>
+                    <div className="text-sm text-slate-500 dark:text-slate-400 font-medium bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-700">
+                        {projects.length} Projets actifs
+                    </div>
                 </div>
             </div>
             
@@ -41,7 +70,6 @@ export const Dashboard = () => {
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                {/* Add New Project Card */}
                 <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-6 border-2 border-dashed border-slate-300 dark:border-slate-700 flex flex-col justify-center items-center text-center order-first lg:order-last min-h-[220px] hover:border-blue-400 dark:hover:border-blue-500 transition-colors group">
                     <form onSubmit={handleAddProject} className="w-full">
                         <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
