@@ -392,6 +392,41 @@ export interface Database {
           is_coloration_compatible?: boolean
         }
       }
+      sni_fichiers: {
+        Row: {
+          id: string
+          user_id: string
+          created_at: string
+          categorie: string
+          titre: string
+          nom_fichier: string
+          extension: string | null
+          taille: number | null
+          file_path: string
+        }
+        Insert: {
+          id?: string
+          user_id?: string
+          created_at?: string
+          categorie: string
+          titre: string
+          nom_fichier: string
+          extension?: string | null
+          taille?: number | null
+          file_path: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          created_at?: string
+          categorie?: string
+          titre?: string
+          nom_fichier?: string
+          extension?: string | null
+          taille?: number | null
+          file_path?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never

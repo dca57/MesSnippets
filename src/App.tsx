@@ -32,6 +32,7 @@ import ThankYou from "./features/admin/landing/ThankYou";
 // Sidebar Pages
 import Main from "./pages/Main";
 import MesSnippets from "./pages/MesSnippets";
+import MesFichiers from "./pages/MesFichiers";
 import SQLConstructor from "./pages/SQLConstructor";
 import MesTimeSheets from "./pages/MesTimeSheets";
 import Dashboard from "./pages/MesSnippets/components/Dashboard";
@@ -96,6 +97,7 @@ const App = () => {
                         <Route index element={<Dashboard />} />
                         <Route path="/" element={<Dashboard />} />
                         <Route path="/MesSnippets/*" element={<MesSnippets />} />
+                        <Route path="/MesFichiers/*" element={<MesFichiers />} />
                         <Route
                           path="/SQLConstructor"
                           element={<SQLConstructor />}

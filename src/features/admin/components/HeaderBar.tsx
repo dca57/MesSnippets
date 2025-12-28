@@ -103,6 +103,14 @@ const HeaderBar: React.FC = () => {
             >
               <Icons.List className="w-4 h-4" />
             </Link>
+
+            <Link
+              to="/MesFichiers"
+              title="Mes Fichiers"
+              className="ml-2 p-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500 text-orange-700 dark:text-orange-400 font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
+            >
+              <Icons.FileText className="w-4 h-4" />
+            </Link>
           </div>
 
           <div className="flex items-center gap-2">
