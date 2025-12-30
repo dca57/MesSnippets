@@ -124,9 +124,9 @@ const MesFichiers: React.FC = () => {
                 {/* Header */}
                 <div className="flex justify-between items-center">
                     <div>
-                        <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+                        <h1 className="text-2xl font-bold text-orange-600 dark:text-orange-400 flex items-center gap-2">
                              Mes Fichiers
-                             {selectedCategory && <span className="text-purple-600 dark:text-purple-400 text-lg font-normal">/ {selectedCategory}</span>}
+                             {selectedCategory && <span className="text-orange-600 dark:text-orange-400 text-lg font-normal">/ {selectedCategory}</span>}
                         </h1>
                         <p className="text-slate-500 dark:text-slate-400">
                             Gérez vos documents personnels

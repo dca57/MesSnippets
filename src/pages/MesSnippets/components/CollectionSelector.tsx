@@ -117,7 +117,7 @@ export const CollectionSelector: React.FC<CollectionSelectorProps> = ({
   return (
     <div className="flex px-0">
       <div className="flex items-center justify-between gap-2 overflow-x-auto overflow-y-hidden no-scrollbar">
-        <h3 className="text-xl font-semibold text-slate-500 dark:text-slate-400 tracking-wider flex-shrink-0">
+        <h3 className="text-xl font-semibold text-yellow-500 dark:text-yellow-400 tracking-wider flex-shrink-0">
           COLLECTIONS :
         </h3>
 

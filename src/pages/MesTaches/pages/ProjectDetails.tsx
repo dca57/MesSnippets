@@ -80,10 +80,10 @@ export const ProjectDetails = ({ project }: { project: Project }) => {
              <div className="flex items-center gap-3 overflow-hidden">
                 <button 
                     onClick={() => selectProject(null)} 
-                    className="shrink-0 text-red-600 dark:text-red-400 hover:text-red-500 transition-colors p-1"
+                    className="flex items-center gap-2 shrink-0 text-red-600 dark:text-red-400 hover:text-red-500 transition-colors p-1"
                     title="Retour aux projets"
                 >
-                    <Icons.ChevronLeft size={20} />
+                    <Icons.ChevronLeft size={20} /> Retour
                 </button>
                 
                 <div className="flex items-center gap-2 truncate text-slate-900 dark:text-white">
@@ -103,7 +103,7 @@ export const ProjectDetails = ({ project }: { project: Project }) => {
                 </div>
             </div>
 
-            <div className="ml-9 flex items-center gap-2">
+            <div className="ml-2 flex items-center gap-2">
                  <button 
                     onClick={() => updateProject(project.id, { modeGestionCharge: !project.modeGestionCharge })}
                     className={cn(

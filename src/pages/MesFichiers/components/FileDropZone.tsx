@@ -45,10 +45,10 @@ export const FileDropZone: React.FC<FileDropZoneProps> = ({ onFileDropped }) => 
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       className={`
-        border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-200 hover:bg-slate-50 dark:hover:bg-slate-800/50
+        border-2 border-dashed rounded-xl p-4 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-200 hover:bg-slate-50 dark:hover:bg-slate-800/50
         ${
           isDragOver
-            ? "border-purple-500 bg-purple-50 dark:bg-purple-900/20 scale-102"
+            ? "border-orange-500 bg-orange-50 dark:bg-orange-900/20 scale-102"
             : "border-slate-300 dark:border-slate-700"
         }
       `}
@@ -60,8 +60,8 @@ export const FileDropZone: React.FC<FileDropZoneProps> = ({ onFileDropped }) => 
         className="hidden"
       />
       
-      <div className={`p-4 rounded-full mb-4 transition-colors ${isDragOver ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-600' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'}`}>
-        <Icons.Upload className="w-8 h-8" />
+      <div className={`p-3 rounded-full mb-2 transition-colors ${isDragOver ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-600' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'}`}>
+        <Icons.Upload className="w-6 h-6" />
       </div>
       
       <h3 className="text-lg font-medium text-slate-700 dark:text-slate-200 mb-1">

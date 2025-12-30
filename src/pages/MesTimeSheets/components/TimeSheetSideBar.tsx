@@ -35,7 +35,7 @@ export const TimeSheetSideBar: React.FC<TimeSheetSideBarProps> = ({
 
   return (
     <div className="w-full md:w-72 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 p-6 flex flex-col gap-6 no-print overflow-y-auto shrink-0 z-10 shadow-sm">
-      <button onClick={onBack} className="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-blue-600 transition-colors font-medium">
+      <button onClick={onBack} className="flex items-center gap-2 text-red-600 dark:text-red-400 hover:text-red-500 transition-colors font-medium">
         <Icons.ChevronLeft size={20} /> Retour
       </button>
 

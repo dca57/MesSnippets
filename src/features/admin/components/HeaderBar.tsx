@@ -67,7 +67,7 @@ const HeaderBar: React.FC = () => {
             <Link
               to="/"
               title="Dashbord"
-              className="flex p-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500 text-purple-700 dark:text-purple-400 font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
+              className="flex p-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500 text-yellow-700 dark:text-yellow-400 font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
             >
               <Icons.LayoutGrid className="w-4 h-4" />
             </Link>
@@ -75,25 +75,9 @@ const HeaderBar: React.FC = () => {
             <Link
               to="/MesSnippets"
               title="Mes Snippets"
-              className="ml-2 p-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500 text-purple-700 dark:text-purple-400 font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
+              className="ml-2 p-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500 text-yellow-700 dark:text-yellow-400 font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
             >
               <Icons.Code2 className="w-4 h-4" />
-            </Link>
-
-            <Link
-              to="/SQLConstructor"
-              title="SQL Constructor"
-              className="ml-2 p-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500 text-red-700 dark:text-red-400 font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
-            >
-              <Icons.Hammer className="w-4 h-4" />
-            </Link>
-
-            <Link
-              to="/MesTimeSheets"
-              title="Mes TimeSheets"
-              className="ml-2 p-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500 text-green-700 dark:text-green-400 font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
-            >
-              <Icons.Clock className="w-4 h-4" />
             </Link>
 
             <Link
@@ -111,6 +95,23 @@ const HeaderBar: React.FC = () => {
             >
               <Icons.FileText className="w-4 h-4" />
             </Link>
+            
+            <Link
+              to="/SQLConstructor"
+              title="SQL Constructor"
+              className="ml-2 p-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500 text-red-700 dark:text-red-400 font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
+            >
+              <Icons.Hammer className="w-4 h-4" />
+            </Link>
+
+            <Link
+              to="/MesTimeSheets"
+              title="Mes TimeSheets"
+              className="ml-2 p-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500 text-green-700 dark:text-green-400 font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
+            >
+              <Icons.Clock className="w-4 h-4" />
+            </Link>
+
           </div>
 
           <div className="flex items-center gap-2">

@@ -12,6 +12,11 @@ const SideBar: React.FC = () => {
       icon: <Icons.FileText className="w-5 h-5" />,
     },
     {
+      path: "/MesFichiers",
+      label: "Mes Fichiers",
+      icon: <Icons.FolderOpen className="w-5 h-5" />,
+    },
+    {
       path: "/SQLConstructor",
       label: "SQL Constructor",
       icon: <Icons.Layout className="w-5 h-5" />,

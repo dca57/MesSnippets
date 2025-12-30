@@ -18,6 +18,8 @@ const PageTitleUpdater = () => {
       title = 'MesTimeSheets';
     } else if (path.startsWith('/MesTaches')) {
       title = 'MesTaches';
+    } else if (path.startsWith('/MesFichiers')) {
+      title = 'Mes Fichiers';
     } else if (path.startsWith('/admin')) {
         title = 'Admin';
     } else if (path.startsWith('/user-settings')) {

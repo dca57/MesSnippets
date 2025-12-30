@@ -20,6 +20,21 @@ export const MissionCard: React.FC<MissionCardProps> = ({
 }) => {
   const [history, setHistory] = useState<{month: number, year: number}[]>([]);
   const [showHistory, setShowHistory] = useState(false);
+  const timeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleMouseEnter = () => {
+    if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+    }
+    setShowHistory(true);
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+        setShowHistory(false);
+    }, 300);
+  };
 
   // Load history on mount to populate the hover menu
   useEffect(() => {
@@ -89,8 +104,8 @@ export const MissionCard: React.FC<MissionCardProps> = ({
         {/* Historique Hover Area */}
         <div 
             className="relative text-center"
-            onMouseEnter={() => setShowHistory(true)}
-            onMouseLeave={() => setShowHistory(false)}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
         >
           <div className="text-xs text-slate-400 dark:text-slate-500 cursor-pointer hover:text-blue-600 transition-colors py-2 flex items-center justify-center gap-1">
             <Icons.Calendar size={12} /> Historique

@@ -20,7 +20,7 @@ import { useCollections } from "./MesSnippets/hooks/useCollections";
 import { useCategories } from "./MesSnippets/hooks/useCategories";
 import { useSnippets } from "./MesSnippets/hooks/useSnippets";
 
-const MAX_TABS = 6;
+const MAX_TABS = 8;
 
 interface TabState {
   snippetId: string;

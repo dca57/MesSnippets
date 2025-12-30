@@ -18,7 +18,7 @@ export const FileList: React.FC<FileListProps> = ({
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <Icons.Loader2 className="w-8 h-8 animate-spin text-purple-600" />
+        <Icons.Loader2 className="w-8 h-8 animate-spin text-orange-600" />
       </div>
     );
   }
@@ -41,14 +41,19 @@ export const FileList: React.FC<FileListProps> = ({
         >
           <div>
             <div className="flex items-start justify-between mb-2">
-                <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
-                    <Icons.FileText className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                <div className="flex items-center gap-2">
+                  <div className="p-2 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
+                      <Icons.FileText className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+                  </div>
+                  <span className="text-xs font-semibold px-2 py-1 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
+                    {file.categorie}
+                  </span>
                 </div>
                 {/* Actions */}
                 <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                     <button
                         onClick={() => onDownload(file)}
-                        className="p-1.5 text-slate-500 hover:text-purple-600 hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-md transition-colors"
+                        className="p-1.5 text-slate-500 hover:text-orange-600 hover:bg-orange-50 dark:hover:bg-orange-900/20 rounded-md transition-colors"
                         title="Télécharger"
                     >
                         <Icons.Download className="w-4 h-4" />
